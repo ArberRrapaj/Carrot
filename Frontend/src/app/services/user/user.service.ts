@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 
-import { User } from '../../classes/User';
+import { User } from '../../classes/user';
 import { ErrorService } from '../error/error.service';
 import { NotificationService } from '../notification/notification.service';
 
