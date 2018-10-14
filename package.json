@@ -1,0 +1,16 @@
+{
+  "name": "carrot",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "frontend": "cd ./Frontend/ && ng serve",
+    "backend": "cd ./Backend/  && nodemon ./bin/www",
+    "start": "parallelshell \"npm run backend\" \"npm run frontend\"",
+    "frontendBuild": "cd ./Frontend/ && npm install",
+    "backendBuild": "cd ./Backend/ && npm install",
+    "install": "parallelshell \"npm run frontendBuild\" \"npm run backendBuild\""
+  },
+  "dependencies": {
+    "parallelshell": "^3.0.2"
+  }
+}

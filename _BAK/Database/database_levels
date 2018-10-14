@@ -1,0 +1,9 @@
+CREATE TABLE `Levels` (
+  `LevelID` int(11) NOT NULL AUTO_INCREMENT,
+  `GameID` int(11) NOT NULL,
+  `Name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `Image` blob,
+  PRIMARY KEY (`LevelID`),
+  KEY `GameID` (`GameID`),
+  CONSTRAINT `levels_ibfk_1` FOREIGN KEY (`GameID`) REFERENCES `games` (`gameid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci

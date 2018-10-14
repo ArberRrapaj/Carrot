@@ -1,0 +1,7 @@
+{
+    "extends": "standard",
+    "rules": {
+        "standard/no-callback-literal": "off",
+        "handle-callback-err": "off"
+    }
+}

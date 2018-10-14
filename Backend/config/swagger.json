@@ -1,0 +1,986 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Carrot is the go-to App for Gamers, who want an overview about every Game they own. You have a huge Game library, but don't know what to play? Carrot gives you a daily suggestion on which game you could play. Connect to other players, by visiting their profiles. Don't hesitate and jump right in!",
+    "version": "0.0.1",
+    "title": "Carrot",
+    "termsOfService": "http://termsLinkHere/",
+    "contact": {
+      "email": "Arber.Rrapaj@hotmail.de"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "users",
+      "description": "User-related stuff"
+    },
+    {
+      "name": "games",
+      "description": "Operations on games"
+    },
+    {
+      "name": "genres",
+      "description": "Operations on genres"
+    },
+    {
+      "name": "libraries",
+      "description": "Operations on user's libraries"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Add a new user to DB",
+        "operationId": "saveUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The User's information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful added user to database"
+          },
+          "400": {
+            "description": "sent user-information were not valid"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get a list of all users",
+        "operationId": "getAllUser",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "contains the 'Username' and 'Password' input",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid username/password combination supplied"
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/users/search/{username}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get a list of all users containing a given part of the username",
+        "description": "",
+        "operationId": "getUsersByUsername",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "description": "Part of the username of users to fetch",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/users/{username}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get user by user name",
+        "description": "",
+        "operationId": "getUserByUsername",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The User's username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Update user",
+        "operationId": "updateUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The User's username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The User's updated information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "There is no user with that username"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Delete a user",
+        "operationId": "deleteUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The User's username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "There is no user with that username"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/users/{username}/password": {
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Update user's passwords",
+        "operationId": "updatePassword",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The User's username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "body containing 'OldPassword' and 'NewPassword'",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Password"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "There is no user with that username"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/games/": {
+      "post": {
+        "tags": [
+          "games"
+        ],
+        "summary": "Add a new game to the Database",
+        "operationId": "saveGame",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The Game's information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Game"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "games"
+        ],
+        "summary": "Get a list of all games",
+        "description": "",
+        "operationId": "getGames",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Game"
+            }
+          }
+        }
+      }
+    },
+    "/games/title/{title}": {
+      "get": {
+        "tags": [
+          "games"
+        ],
+        "summary": "Get a list of all games in the DB containing the given title",
+        "description": "",
+        "operationId": "getGamesAgain",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "title",
+            "description": "The title-part",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Game"
+            }
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/games/{gameID}": {
+      "get": {
+        "tags": [
+          "games"
+        ],
+        "summary": "Find a game by its ID",
+        "description": "Returns a single game",
+        "operationId": "getGameByGameID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameID",
+            "in": "path",
+            "description": "The Game's ID",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Game"
+            }
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "games"
+        ],
+        "summary": "Updates a game in the Games-DB with form data",
+        "description": "",
+        "operationId": "updateGame",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameID",
+            "in": "path",
+            "description": "The Game's ID",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The Game's new data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Game"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "There is no game with that gameID"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "games"
+        ],
+        "summary": "Deletes a game",
+        "description": "",
+        "operationId": "deleteGame",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameID",
+            "in": "path",
+            "description": "The Game's ID",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "There is no game with that gameID"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/genres": {
+      "get": {
+        "tags": [
+          "genres"
+        ],
+        "summary": "Get a list of all genres",
+        "description": "",
+        "operationId": "getGenres",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Genre"
+            }
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/genres/{genreID}": {
+      "get": {
+        "tags": [
+          "genres"
+        ],
+        "summary": "Get genre by genreID",
+        "operationId": "getGenreByGenreID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "genreID",
+            "in": "path",
+            "description": "The Genre's ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Genre"
+            }
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "genres"
+        ],
+        "summary": "Update genre with provided body",
+        "description": "",
+        "operationId": "updateGenre",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "genreID",
+            "in": "path",
+            "description": "The Genre's ID",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The Genre's new data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Genre"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "There is no genre with that genreID"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "genres"
+        ],
+        "summary": "Delete a genre",
+        "description": "",
+        "operationId": "deleteGenre",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "genreID",
+            "in": "path",
+            "description": "The Genre's ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "There is no genre with that genreID"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/countries": {
+      "get": {
+        "tags": [
+          "countries"
+        ],
+        "summary": "Get a list of all countries",
+        "description": "",
+        "operationId": "getCountries",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Country"
+            }
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/countries/{countryID}": {
+      "get": {
+        "tags": [
+          "countries"
+        ],
+        "summary": "Get a country by its countryID",
+        "description": "",
+        "operationId": "getCountryByCountryID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "countryID",
+            "in": "path",
+            "description": "The Country's ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Country"
+            }
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/libraries/{username}": {
+      "get": {
+        "tags": [
+          "libraries"
+        ],
+        "summary": "Get Library of a user with all of his games",
+        "description": "",
+        "operationId": "getLibraryByUserID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "description": "The User's username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Game"
+            }
+          },
+          "404": {
+            "description": "There is no user with that username"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "libraries"
+        ],
+        "summary": "Add a game to a users library",
+        "description": "",
+        "operationId": "addGameToLibrary",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The User's username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "body containing 'GameID' = The Game's ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Library"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "There is no user with that username"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    },
+    "/libraries/{username}/{gameID}": {
+      "delete": {
+        "tags": [
+          "libraries"
+        ],
+        "summary": "Remove a game out of a user's library",
+        "operationId": "deleteGameOffLibrary",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The User's username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "gameID",
+            "in": "path",
+            "description": "The Game's ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid gameID supplied"
+          },
+          "404": {
+            "description": "There is no user with that username"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "carrot_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:games": "modify games in your account",
+        "read:games": "read your games"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Game": {
+      "type": "object",
+      "properties": {
+        "GameID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "GenreID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Title": {
+          "type": "string",
+          "description": "Title of the game"
+        },
+        "Publisher": {
+          "type": "string",
+          "description": "Publisher of the game"
+        },
+        "Released": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Image": {
+          "type": "string",
+          "description": "Image in blob-form"
+        }
+      },
+      "xml": {
+        "name": "Game"
+      }
+    },
+    "Genre": {
+      "type": "object",
+      "properties": {
+        "GenreID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "GenreName": {
+          "type": "string",
+          "description": "Name of the genre"
+        }
+      },
+      "xml": {
+        "name": "Genre"
+      }
+    },
+    "Country": {
+      "type": "object",
+      "properties": {
+        "CountryID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CountryCode": {
+          "type": "string",
+          "description": "The country code of the according country"
+        },
+        "CountryName": {
+          "type": "string",
+          "description": "The country's name"
+        }
+      },
+      "xml": {
+        "name": "Country"
+      }
+    },
+    "Password": {
+      "type": "object",
+      "properties": {
+        "OldPassword": {
+          "type": "string",
+          "description": "The old Password"
+        },
+        "NewPassword": {
+          "type": "string",
+          "description": "The new Password"
+        }
+      },
+      "xml": {
+        "name": "Password"
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "UserID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Username": {
+          "type": "string"
+        },
+        "Password": {
+          "type": "string",
+          "format": "hashed"
+        },
+        "FirstName": {
+          "type": "string"
+        },
+        "CountryID": {
+          "type": "integer",
+          "description": "CountryId"
+        },
+        "Image": {
+          "type": "string"
+        },
+        "Start": {
+          "type": "integer",
+          "description": "Date the user started gaming"
+        },
+        "FavouriteGameID": {
+          "type": "integer",
+          "format": "GameId"
+        },
+        "About": {
+          "type": "string",
+          "format": "Information about the user"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Library": {
+      "type": "object",
+      "properties": {
+        "GameID": {
+          "type": "integer",
+          "description": "GameID"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "Username": {
+          "type": "string"
+        },
+        "Password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
