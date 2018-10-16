@@ -43,6 +43,7 @@ module.exports = {
      */
   get: function (req, res, callback) {
     Game.getGames('', function (err, results) {
+      console.log('Error: ', err)
       if (err) callback(err, { 'status': 500, 'data': err.message })
       else callback(err, { 'status': 200, 'data': results })
     })

@@ -80,20 +80,28 @@ Game.getGames = function (title, callback) {
   console.log('getGames: ' + title)
 
   const queryWithTitle = 'SELECT GameID, Title FROM Games WHERE Title LIKE ?'
-  const queryNoTitle = 'SELECT GameID, Title, GenreID, Publisher, Released, Image FROM Games WHERE Title LIKE ?'
+  const queryNoTitle = 'SELECT GameID, Title, GenreID, Publisher, Released, Image FROM Games'
   let query
   if (title === '') query = queryNoTitle
-  else query = queryWithTitle
+  else {
+    query = queryWithTitle
+    title = '%' + title + '%'
+  }
 
-  title = '%' + title + '%'
-
+  console.log('Title:', title)
+  console.log('Query: ', query)
   DB.query(query, [title], function (err, results) {
-    if (err) callback(err, results)
-    else {
+    console.log('DB-Error', err)
+    console.log(err)
+    console.log('DB-Results-Length', results.length)
+    if (err) {
+      console.log('There is an error, motherfucker')
+      callback(err, results)
+    } else {
       results.forEach((game, index) => {
         if (game.Image != null && game.Image !== undefined && game.Image !== '') results[index].Image = game.Image.toString('utf-8')
       })
-      callback(err, results)
+      callback(false, results)
     }
   })
 }

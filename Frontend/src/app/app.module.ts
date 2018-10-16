@@ -1,12 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatToolbarModule, MatButtonModule, MatCardModule, MatGridListModule,
+  MatIconModule, MatListModule, MatSidenavModule, MatTooltipModule, MatAutocompleteModule,
+  MatFormFieldModule, MatProgressSpinnerModule, MatMenuModule
+} from '@angular/material';
+
 
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { MultilineEllipsisModule } from 'angular2-multiline-ellipsis';
 
 import { OrderbyPipe } from './pipes/orderby/orderby.pipe';
-
 import { AppComponent } from './components/app/app.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -18,6 +25,8 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
 import { UserPasswordComponent } from './components/user-password/user-password.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { GameNewComponent } from './components/game-new/game-new.component';
 
 @NgModule({
   declarations: [
@@ -31,16 +40,34 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     UserSearchComponent,
     UserDetailComponent,
     UserPasswordComponent,
-    NavigationComponent
+    NavigationComponent,
+    NotificationsComponent,
+    GameNewComponent
   ],
   imports: [
     BrowserModule,
     BsDropdownModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
 
-    AppRoutingModule
+    AppRoutingModule,
+    NgxSpinnerModule,
+    FlexLayoutModule,
+    MultilineEllipsisModule,
 
+    MatToolbarModule,
+    MatButtonModule,
+    MatCardModule,
+    MatGridListModule,
+    MatIconModule,
+    MatListModule,
+    MatSidenavModule,
+    MatTooltipModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

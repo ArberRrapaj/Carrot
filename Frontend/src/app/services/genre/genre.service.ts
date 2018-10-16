@@ -30,7 +30,10 @@ export class GenreService {
     private errorService: ErrorService) { }
 
 
-
+  /**
+   * Get a list of all genres
+   *
+   */
   getGenres (): Observable<Genre[]> {
     return this.http.get<Genre[]>(this.genresUrl)
       .pipe(
@@ -39,8 +42,13 @@ export class GenreService {
       );
   }
 
-  getGenre(id: number): Observable<Genre> {
-    const url = `${this.genresUrl}/${id}`;
+  /**
+   * Get genre by genreID
+   *
+   * @param genreID The Genre's ID
+   */
+  getGenre(genreID: number): Observable<Genre> {
+    const url = `${this.genresUrl}/${genreID}`;
 
     return this.http.get<Genre>(url).pipe(
       // tap(genre => this.notificationService.log('Successfully loaded Genre')),
@@ -48,6 +56,7 @@ export class GenreService {
     );
   }
 
+  /*
   searchGenres(term: string): Observable<Genre[]> {
     if (!term.trim()) { return of([]); } // if not search term, return empty Genre array.
 
@@ -66,10 +75,13 @@ export class GenreService {
     );
   }
 
-
-  deleteGenre (genre: Genre | number): Observable<String> {
-    const id = typeof genre === 'number' ? genre : genre.GenreID;
-    const url = `${this.genresUrl}/${id}`;
+  /**
+   * Delete a genre
+   *
+   * @param genreID The Genre's ID
+   /
+  deleteGenre (genreID: number): Observable<String> {
+    const url = `${this.genresUrl}/${genreID}`;
 
     return this.http.delete<String>(url, httpOptions).pipe(
       // tap(_ => this.notificationService.log('Successfully deleted Genre')),
@@ -77,10 +89,17 @@ export class GenreService {
     );
   }
 
+  /**
+   * Update genre with provided body
+   *
+   * @param genreID The Genre's ID
+   * @param body The Genre's new data
+   /
   updateGenre (genre: Genre): Observable<String> {
     return this.http.put(this.genresUrl, genre, httpOptions).pipe(
       // tap(_ => this.notificationService.log('Successfully updated genre')),
       catchError(this.errorService.handleError<any>('Updating Genre'))
     );
   }
+  */
 }

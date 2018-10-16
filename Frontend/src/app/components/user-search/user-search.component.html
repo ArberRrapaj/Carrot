@@ -1,3 +1,21 @@
-<p>
-  user-search works!
-</p>
+<h4> User Search </h4>
+
+<form class="users-form" [formGroup]='usersForm'>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Choose a user" [matAutocomplete]="auto" formControlName='userInput'>
+  </mat-form-field>
+  <span>Your choice is: {{usersForm.get('userInput').value | json}}</span>
+
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngIf="isLoading" class="is-loading">
+      <mat-spinner diameter="50"></mat-spinner>
+    </mat-option>
+    <ng-container *ngIf="!isLoading">
+      <mat-option *ngFor="let user of filteredUsers" [value]="user.Username">
+        <span>{{ user.Username }}</span>
+        <small *ngIf="user.FirstName"> | {{user.FirstName}}</small>
+      </mat-option>
+    </ng-container>
+  </mat-autocomplete>
+</form>
+  

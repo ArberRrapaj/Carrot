@@ -30,7 +30,10 @@ export class UserService {
     private errorService: ErrorService) { }
 
 
-
+  /**
+   * Get a list of all users
+   *
+   */
   getUsers (): Observable<User[]> {
     return this.http.get<User[]>(this.usersUrl)
       .pipe(
@@ -39,6 +42,11 @@ export class UserService {
       );
   }
 
+  /**
+   * Get user by user name
+   *
+   * @param username The User&#39;s username
+   */
   getUser(id: number): Observable<User> {
     const url = `${this.usersUrl}/${id}`;
 
@@ -48,17 +56,26 @@ export class UserService {
     );
   }
 
-  searchUsers(term: string): Observable<User[]> {
-    if (!term.trim()) { return of([]); } // if not search term, return empty User array.
 
-    return this.http.get<User[]>(`${this.usersUrl}/${term}`).pipe(
+  /**
+   * Get a list of all users containing a given part of the username
+   *
+   * @param username Part of the username of users to fetch
+   */
+  searchUsers(username: string): Observable<User[]> {
+    if (!username.trim()) { return of([]); } // if not search term, return empty User array.
+
+    return this.http.get<User[]>(`${this.usersUrl}/${username}`).pipe(
       // tap(users => this.notificationService.log('Succesfully loaded matching users')),
       catchError(this.errorService.handleError<User[]>('Fetching matching users', []))
     );
   }
 
-
-
+  /**
+   * Add a new user to DB
+   *
+   * @param body The User's information
+   */
   addUser (user: User): Observable<String> {
     return this.http.post<String>(this.usersUrl, user, httpOptions).pipe(
       // tap((user: string) => this.notificationService.log(user)),
@@ -66,10 +83,13 @@ export class UserService {
     );
   }
 
-
-  deleteUser (user: User | number): Observable<String> {
-    const id = typeof user === 'number' ? user : user.UserID;
-    const url = `${this.usersUrl}/${id}`;
+  /**
+   * Delete a user
+   *
+   * @param username The User&#39;s username
+   */
+  deleteUser (username: string): Observable<String> {
+    const url = `${this.usersUrl}/${username}`;
 
     return this.http.delete<String>(url, httpOptions).pipe(
       // tap(_ => this.notificationService.log('Successfully deleted User')),
@@ -77,10 +97,36 @@ export class UserService {
     );
   }
 
+  /**
+   * Update user
+   *
+   * @param username The User's username
+   * @param body The User's updated information
+   */
   updateUser (user: User): Observable<String> {
     return this.http.put(this.usersUrl, user, httpOptions).pipe(
       // tap(_ => this.notificationService.log('Successfully updated user')),
       catchError(this.errorService.handleError<any>('Updating User'))
     );
   }
+
+  /**
+   * Logs user into the system
+   *
+   * @param body contains the &#39;Username&#39; and &#39;Password&#39; input
+   */
+
+
+
+  /**
+   * Logs out current logged in user session
+   *
+   */
+
+  /**
+   * Update user's passwords
+   *
+   * @param username The User's username
+   * @param body body containing 'OldPassword' and 'NewPassword'
+   */
 }

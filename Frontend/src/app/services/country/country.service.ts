@@ -30,7 +30,9 @@ export class CountryService {
     private errorService: ErrorService) { }
 
 
-
+  /**
+   * Get a list of all countries
+   */
   getCountries (): Observable<Country[]> {
     return this.http.get<Country[]>(this.countriesUrl)
       .pipe(
@@ -39,6 +41,11 @@ export class CountryService {
       );
   }
 
+  /**
+   * Get a country by its countryID
+   *
+   * @param countryID The Country's ID
+   */
   getCountry(id: number): Observable<Country> {
     const url = `${this.countriesUrl}/${id}`;
 
@@ -48,39 +55,4 @@ export class CountryService {
     );
   }
 
-  searchCountries(term: string): Observable<Country[]> {
-    if (!term.trim()) { return of([]); } // if not search term, return empty Country array.
-
-    return this.http.get<Country[]>(`${this.countriesUrl}/${term}`).pipe(
-      // tap(countries => this.notificationService.log('Succesfully loaded matching countries')),
-      catchError(this.errorService.handleError<Country[]>('Fetching matching countries', []))
-    );
-  }
-
-
-
-  addCountry (country: Country): Observable<String> {
-    return this.http.post<String>(this.countriesUrl, country, httpOptions).pipe(
-      // tap((country: string) => this.notificationService.log(country)),
-      catchError(this.errorService.handleError<String>('Adding Country'))
-    );
-  }
-
-
-  deleteCountry (country: Country | number): Observable<String> {
-    const id = typeof country === 'number' ? country : country.CountryID;
-    const url = `${this.countriesUrl}/${id}`;
-
-    return this.http.delete<String>(url, httpOptions).pipe(
-      // tap(_ => this.notificationService.log('Successfully deleted Country')),
-      catchError(this.errorService.handleError<String>('Deleting Country'))
-    );
-  }
-
-  updateCountry (country: Country): Observable<String> {
-    return this.http.put(this.countriesUrl, country, httpOptions).pipe(
-      // tap(_ => this.notificationService.log('Successfully updated country')),
-      catchError(this.errorService.handleError<any>('Updating Country'))
-    );
-  }
 }

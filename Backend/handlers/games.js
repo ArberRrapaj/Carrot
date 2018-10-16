@@ -27,6 +27,7 @@ module.exports = {
   get: function getAllGames (req, res, next) {
     let provider = dataProvider['get']
     provider(req, res, function (err, data) {
+      console.log(err, data.status)
       res.status(data.status).json(data.data)
     })
   }

@@ -1,3 +1,28 @@
-<p>
-  navigation works!
-</p>
+<div id="navbar">
+
+  <mat-toolbar>
+      <button mat-button routerLink="/">
+        <img src="../../../assets/carrot.jpg">
+      </button>
+  
+      <div class="fill-remaining-space" fxLayout="row" fxShow="true" fxHide.lt-sm>
+          <button mat-button routerLink="/login">Login</button>
+          <button mat-button routerLink="/dashboard">Dashboard</button>
+          <button mat-button routerLink="/games">Games</button>
+          <button mat-button routerLink="/users/bubblegumplayer">Profile</button>
+      </div>
+      <div class="fill-remaining-space" fxHide="true" fxlayout="row-reverse" fxShow.lt-sm>
+        <button mat-button [mat-menu-trigger-for]="menu">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+  </mat-toolbar>
+
+  <mat-menu x-position="before" #menu="matMenu">
+      <button mat-menu-item routerLink="/login">Login</button>
+      <button mat-menu-item routerLink="/dashboard">Dashboard</button>
+      <button mat-menu-item routerLink="/games">Games</button>
+      <button mat-menu-item routerLink="/users/bubblegumplayer">Profile</button>
+  </mat-menu>
+
+</div>
