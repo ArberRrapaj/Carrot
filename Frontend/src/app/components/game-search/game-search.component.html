@@ -4,7 +4,7 @@
   <mat-form-field class="full-width">
     <input matInput placeholder="Choose a Game" [matAutocomplete]="auto" formControlName='userInput'>
   </mat-form-field>
-  <span>Your choice is: {{gamessForm.get('userInput').value | json}}</span>
+  <span>Your choice is: {{gamesForm.get('userInput').value | json}}</span>
 
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
     <mat-option *ngIf="isLoading" class="is-loading">

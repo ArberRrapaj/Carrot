@@ -74,7 +74,7 @@ export class GamesComponent implements OnInit {
           return genreMap;
         }, {});
       } else { this.error = true; }
-
+      this.upTheLoader();
       // this.genres = genres;
     });
   }
@@ -83,6 +83,7 @@ export class GamesComponent implements OnInit {
     this.gameService.getGames()
     .subscribe(games => {
       console.log(games);
+      this.upTheLoader();
       this.games = games;
     });
   }

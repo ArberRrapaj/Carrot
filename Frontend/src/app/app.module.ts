@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule, MatButtonModule, MatCardModule, MatGridListModule,
   MatIconModule, MatListModule, MatSidenavModule, MatTooltipModule, MatAutocompleteModule,
-  MatFormFieldModule, MatProgressSpinnerModule, MatMenuModule
+  MatFormFieldModule, MatProgressSpinnerModule, MatMenuModule, MatInputModule
 } from '@angular/material';
-
 
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -46,6 +46,7 @@ import { GameNewComponent } from './components/game-new/game-new.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     BsDropdownModule,
     FormsModule,
     ReactiveFormsModule,
@@ -67,7 +68,8 @@ import { GameNewComponent } from './components/game-new/game-new.component';
     MatAutocompleteModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -23,7 +23,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserService {
-  private usersUrl = 'localhost:3000/api/users';  // URL to web api
+  private usersUrl = 'http://localhost:3000/api/users';  // URL to web api
 
   constructor(private http: HttpClient,
     private notificationService: NotificationService,

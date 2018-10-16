@@ -23,7 +23,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class GenreService {
-  private genresUrl = 'localhost:3000/api/genres';  // URL to web api
+  private genresUrl = 'http://localhost:3000/api/genres';  // URL to web api
 
   constructor(private http: HttpClient,
     private notificationService: NotificationService,
@@ -35,9 +35,10 @@ export class GenreService {
    *
    */
   getGenres (): Observable<Genre[]> {
+    console.log('getGenres called');
     return this.http.get<Genre[]>(this.genresUrl)
       .pipe(
-        // tap(genres => this.notificationService.log('Successfully loaded genres')),
+        tap(genres => this.notificationService.log('Successfully loaded genres')),
         catchError(this.errorService.handleError('Fetching Genres', []))
       );
   }

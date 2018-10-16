@@ -17,7 +17,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class LibraryService {
-  private librariesUrl = 'localhost:3000/api/libraries';  // URL to web api
+  private librariesUrl = 'http://localhost:3000/api/libraries';  // URL to web api
 
   constructor(private http: HttpClient,
     private notificationService: NotificationService,

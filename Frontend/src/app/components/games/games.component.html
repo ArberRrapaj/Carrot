@@ -3,7 +3,6 @@
 
 <div *ngIf="loaded && !error">
 
-
   <div id="games-list-info" *ngIf="games">
     Welcome to the Games-Tab, seems like our database includes a stunning number of {{games.length}} games!
     <button mat-raised-button routerLink="/games/new" color="primary"> Add another one! </button>
@@ -14,23 +13,23 @@
   </div>
 
   <div id="games-list" *ngIf="games.length > 0">
-    <mat-grid-list [cols]="cols | async">
+    <mat-grid-list [cols]="cols | async" rowHeight="450px" gutterSize="20px">
       <mat-grid-tile *ngFor="let game of games" colspan=1 rowspan=1>
-        <mat-card class="game-card" class="mat-elevation-z15" fxFlex fxLayoutAlign="space-between" fxLayout="column">
+        <mat-card class="game-card">
           <mat-card-header routerLink="/games/{{game.GameID}}">
             <mat-card-title>{{game.Title}}</mat-card-title>
             <mat-card-subtitle>{{ game.Released || 'Year n/a' }}</mat-card-subtitle>
           </mat-card-header>
           <img *ngIf="!game.Image" mat-card-image src="../../assets/no-cover.png" routerLink="/games/detail/{{game.GameID}}">
           <img *ngIf="game.Image" mat-card-image src="{{game.Image}}" routerLink="/games/detail/{{game.GameID}}">
-          <mat-card-content routerLink="/games/game.GameID" fxLayout="column" fxLayoutAlign="space-between" fxFlex>
+          <mat-card-content routerLink="/games/game.GameID">
             <p> Publisher: {{ game.Publisher || 'n/a'}} </p>
             <p> Genre: {{ genres[game.Genre] }} </p>
           </mat-card-content>
           <mat-card-footer>
-            <mat-card-actions fxFlex>
-              <button mat-raised-button (click)="addToLibrary(game.GameID)" color="primary">Add</button>
-              <button mat-raised-button routerLink="/games/detail/{{game.GameID}}/edit" color="primary">Edit</button>
+            <mat-card-actions>
+              <button class="card-button" mat-raised-button (click)="addToLibrary(game.GameID)" color="primary">Add</button>
+              <button class="card-button" mat-raised-button routerLink="/games/detail/{{game.GameID}}/edit" color="primary">Edit</button>
             </mat-card-actions>
           </mat-card-footer>
         </mat-card>

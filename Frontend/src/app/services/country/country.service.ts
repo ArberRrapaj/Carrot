@@ -23,7 +23,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CountryService {
-  private countriesUrl = 'localhost:3000/api/countries';  // URL to web api
+  private countriesUrl = 'http://localhost:3000/api/countries';  // URL to web api
 
   constructor(private http: HttpClient,
     private notificationService: NotificationService,
