@@ -12,6 +12,7 @@ import { MatToolbarModule, MatButtonModule, MatCardModule, MatGridListModule,
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MultilineEllipsisModule } from 'angular2-multiline-ellipsis';
+import { EllipsisModule } from 'ngx-ellipsis';
 
 import { OrderbyPipe } from './pipes/orderby/orderby.pipe';
 import { AppComponent } from './components/app/app.component';
@@ -56,6 +57,7 @@ import { GameNewComponent } from './components/game-new/game-new.component';
     NgxSpinnerModule,
     FlexLayoutModule,
     MultilineEllipsisModule,
+    EllipsisModule,
 
     MatToolbarModule,
     MatButtonModule,

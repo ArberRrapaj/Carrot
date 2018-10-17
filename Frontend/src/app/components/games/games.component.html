@@ -17,12 +17,13 @@
       <mat-grid-tile *ngFor="let game of games" colspan=1 rowspan=1>
         <mat-card class="game-card">
           <mat-card-header routerLink="/games/{{game.GameID}}">
-            <mat-card-title>{{game.Title}}</mat-card-title>
+            <mat-card-title [innerHTML]="game.Title"></mat-card-title>
             <mat-card-subtitle>{{ game.Released || 'Year n/a' }}</mat-card-subtitle>
           </mat-card-header>
           <img *ngIf="!game.Image" mat-card-image src="../../assets/no-cover.png" routerLink="/games/detail/{{game.GameID}}">
           <img *ngIf="game.Image" mat-card-image src="{{game.Image}}" routerLink="/games/detail/{{game.GameID}}">
           <mat-card-content routerLink="/games/game.GameID">
+            
             <p> Publisher: {{ game.Publisher || 'n/a'}} </p>
             <p> Genre: {{ genres[game.Genre] }} </p>
           </mat-card-content>

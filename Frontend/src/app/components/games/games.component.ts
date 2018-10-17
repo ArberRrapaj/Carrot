@@ -16,7 +16,7 @@ const cols_map = new Map([
   ['xs', 1],
   ['sm', 2],
   ['md', 3],
-  ['lg', 5],
+  ['lg', 4],
   ['xl', 8]
 ]);
 
