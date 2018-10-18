@@ -2,16 +2,15 @@
 
 <form class="games-form" [formGroup]='gamesForm'>
   <mat-form-field class="full-width">
-    <input matInput placeholder="Choose a Game" [matAutocomplete]="auto" formControlName='userInput'>
+    <input id="search-box" matInput placeholder="Choose a Game" [matAutocomplete]="auto" formControlName='userInput'>
   </mat-form-field>
-  <span>Your choice is: {{gamesForm.get('userInput').value | json}}</span>
 
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
     <mat-option *ngIf="isLoading" class="is-loading">
       <mat-spinner diameter="50"></mat-spinner>
     </mat-option>
     <ng-container *ngIf="!isLoading">
-      <mat-option *ngFor="let game of filteredGames" [value]="game.GameID">
+      <mat-option *ngFor="let game of filteredGames" [value]="game.Title" routerLink="/games/{{game.GameID}}">
         <span>{{ game.Title }}</span>
         <small *ngIf="game.Released"> | {{ game.Released }}</small>
       </mat-option>

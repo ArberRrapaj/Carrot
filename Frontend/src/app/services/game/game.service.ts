@@ -64,9 +64,9 @@ export class GameService {
    * @param title The title-part
    */
   searchGames(title: string): Observable<Game[]> {
-    if (!title.trim()) { return of([]); } // if not search term, return empty Game array.
-
-    return this.http.get<Game[]>(`${this.gamesUrl}/${title}`).pipe(
+    if ( !title.trim() ) { return of([]); } // if not search term, return empty Game array.
+    this.notificationService.log(title);
+    return this.http.get<Game[]>(`${this.gamesUrl}/title/${title}`).pipe(
       // tap(games => this.notificationService.log('Succesfully loaded matching games')),
       catchError(this.errorService.handleError<Game[]>('Fetching matching games', []))
     );

@@ -65,7 +65,7 @@ export class UserService {
   searchUsers(username: string): Observable<User[]> {
     if (!username.trim()) { return of([]); } // if not search term, return empty User array.
 
-    return this.http.get<User[]>(`${this.usersUrl}/${username}`).pipe(
+    return this.http.get<User[]>(`${this.usersUrl}/search/${username}`).pipe(
       // tap(users => this.notificationService.log('Succesfully loaded matching users')),
       catchError(this.errorService.handleError<User[]>('Fetching matching users', []))
     );
