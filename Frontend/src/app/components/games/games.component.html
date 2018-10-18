@@ -30,7 +30,8 @@
           <mat-card-footer>
             <mat-card-actions>
               <button class="card-button" mat-raised-button (click)="addToLibrary(game.GameID)" color="primary">Add</button>
-              <button class="card-button" mat-raised-button routerLink="/games/detail/{{game.GameID}}/edit" color="primary">Edit</button>
+              <button class="card-button" mat-raised-button routerLink="/games/detail/{{game.GameID}}/edit" color="accent">Edit</button>
+              <button class="card-button" mat-raised-button (click)="deleteGame(game)" color="warn">Delete</button>
             </mat-card-actions>
           </mat-card-footer>
         </mat-card>

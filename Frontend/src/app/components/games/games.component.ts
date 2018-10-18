@@ -113,9 +113,14 @@ export class GamesComponent implements OnInit {
     });
   }
 
-  deleteGame(): void {
+  deleteGame(game: Game): void {
     console.log('Delete-Game-Called');
-  }
 
+    this.gameService.deleteGame(game.GameID)
+      .subscribe(message => {
+        console.log(message);
+        if (message != null) { this.games = this.games.filter(h => h !== game); }
+      });
+  }
 
 }

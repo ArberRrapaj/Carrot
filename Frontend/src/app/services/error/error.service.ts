@@ -22,7 +22,9 @@ export class ErrorService {
 
       console.error(error); // log to console
 
-      this.log(`${operation} failed: ${error.error}`);
+      if (error.status === 0) {
+        this.log( 'Server Error: Please try again later!' );
+      } else { this.log(`${operation} failed: ${error.error}`); }
 
       // Let the app keep running by returning an empty result.
       return of(result as T);
