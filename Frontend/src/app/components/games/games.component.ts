@@ -82,9 +82,11 @@ export class GamesComponent implements OnInit {
   getGames(): void {
     this.gameService.getGames()
     .subscribe(games => {
+      if (games !== null) {
+        this.games = games;
+      } else { this.error = true; }
       console.log(games);
       this.upTheLoader();
-      this.games = games;
     });
   }
 

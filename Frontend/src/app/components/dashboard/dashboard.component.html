@@ -1,3 +1,45 @@
-<p>
-  dashboard works!
-</p>
+<h2 id="tab-title">Your Library</h2>
+
+<div *ngIf="loaded && !error">
+
+
+  <div id="user-search">
+    <app-user-search></app-user-search>
+  </div>
+
+  <div id="games-list" *ngIf="games.length > 0">
+    <mat-grid-list [cols]="cols | async" rowHeight="450px" gutterSize="20px">
+      <mat-grid-tile *ngFor="let game of games" colspan=1 rowspan=1>
+        <mat-card class="game-card">
+          <mat-card-header routerLink="/games/{{game.GameID}}">
+            <mat-card-title [innerHTML]="game.Title"></mat-card-title>
+            <mat-card-subtitle>{{ game.Released || 'Year n/a' }}</mat-card-subtitle>
+          </mat-card-header>
+          <img *ngIf="!game.Image" mat-card-image src="../../assets/no-cover.png" routerLink="/games/detail/{{game.GameID}}">
+          <img *ngIf="game.Image" mat-card-image src="{{game.Image}}" routerLink="/games/detail/{{game.GameID}}">
+          <mat-card-content routerLink="/games/{{game.GameID}}">
+            
+            <p> Publisher: {{ game.Publisher || 'n/a'}} </p>
+            <p> Genre: {{ genres[game.Genre] }} </p>
+          </mat-card-content>
+          <mat-card-footer>
+            <mat-card-actions>
+              <button class="card-button" mat-raised-button routerLink="/games/detail/{{game.GameID}}/edit" color="primary">Edit</button>
+              <button class="card-button" mat-raised-button (click)="removeFromLibrary(game.GameID)" color="danger">Delete</button>
+            </mat-card-actions>
+          </mat-card-footer>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+  <div id="empty-list" *ngIf="games.length == 0">
+      <p> Seems like there are no games in your Library yet, visit the Games-Tab and add some! </p>
+  </div>
+
+</div>
+
+<div class="error-line" *ngIf="error">
+  <p> There was an error with the connection, please try again later! </p>
+</div>
+  

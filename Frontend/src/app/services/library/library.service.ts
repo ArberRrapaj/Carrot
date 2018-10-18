@@ -29,9 +29,10 @@ export class LibraryService {
    * @param username The User's username
    */
   getLibrary (username: string): Observable<Game[]> {
-    return this.http.get<Game[]>(this.librariesUrl)
+    const url = this.librariesUrl + '/' + username;
+    return this.http.get<Game[]>(url)
       .pipe(
-        // tap(games => this.notificationService.log('Successfully loaded games')),
+        tap(games => this.notificationService.log('Successfully loaded games')),
         catchError(this.errorService.handleError('Fetching your Game-Library', []))
       );
   }
