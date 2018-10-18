@@ -24,7 +24,11 @@ export class ErrorService {
 
       if (error.status === 0) {
         this.log( 'Server Error: Please try again later!' );
-      } else { this.log(`${operation} failed: ${error.error}`); }
+      } else {
+        if ( error.error.startsWith('<!DOCTYPE html>') ) {
+          this.log( 'Server Error: Please try again later!' );
+        } else { this.log(`${operation} failed: ${error.error}`); }
+      }
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

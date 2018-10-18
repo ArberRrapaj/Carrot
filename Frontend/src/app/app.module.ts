@@ -6,7 +6,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule, MatButtonModule, MatCardModule, MatGridListModule,
   MatIconModule, MatListModule, MatSidenavModule, MatTooltipModule, MatAutocompleteModule,
-  MatFormFieldModule, MatProgressSpinnerModule, MatMenuModule, MatInputModule
+  MatFormFieldModule, MatProgressSpinnerModule, MatMenuModule, MatInputModule,
+  MatSnackBarModule,
+  MatSelectModule,
+  MatOptionModule
 } from '@angular/material';
 
 import { BsDropdownModule } from 'ngx-bootstrap';
@@ -71,7 +74,10 @@ import { GameNewComponent } from './components/game-new/game-new.component';
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatMenuModule,
-    MatInputModule
+    MatInputModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    MatOptionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

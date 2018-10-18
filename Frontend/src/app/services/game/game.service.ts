@@ -53,7 +53,14 @@ export class GameService {
     const url = `${this.gamesUrl}/${id}`;
 
     return this.http.get<Game>(url).pipe(
-      // tap(game => this.notificationService.log('Successfully loaded Game')),
+      map( game => {
+        if (game == null) {
+          game = new Game();
+          game.GameID = -1;
+        } else { this.notificationService.log('Successfully loaded Game'); }
+
+        return game;
+      }),
       catchError(this.errorService.handleError<Game>('Fetching Game'))
     );
   }

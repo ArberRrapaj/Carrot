@@ -1,3 +1,92 @@
-<p>
-  game-detail works!
-</p>
+<h2 id="tab-title" *ngIf="!editMode">Game Detail</h2>
+<h2 id="tab-title" *ngIf="editMode">Game Edit</h2>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="large" color="#fe6100" type="pacman"></ngx-spinner>
+
+<div *ngIf="loaded && !error">
+
+  <mat-card id="game-card" *ngIf="editMode">
+    <!-- Title of an Card -->
+    <mat-card-title></mat-card-title>
+
+    <!-- Actual content starts from here -->
+    <mat-card-content>
+      <form [formGroup]="gameForm" (ngSubmit)="onFormSubmit(gameForm.value)">
+        <div id="imageTable">
+          <img *ngIf="!Image" id="imageurl" mat-card-image src="../../assets/no-cover.png">
+          <img *ngIf="Image" id="imageurl" mat-card-image src="{{Image}}">
+
+          <div id="imageActions">
+            <button id="uploadButton" type="button" mat-raised-button color="accent" (click)="image.click()">Upload
+              Image</button>
+            <button id="deleteButton" type="button" mat-raised-button color="warn" (click)="deleteImage()">Delete Image</button>
+            <input #image name="imagedata" type="file" id="imagedata" class="hidden" accept="image/*" (change)="onChangeImage($event)">
+          </div>
+        </div>
+        <table id="formTable">
+          <tr>
+            <td>
+              <mat-form-field>
+                <input formControlName="Title" matInput placeholder="Title" required>
+              </mat-form-field>
+              <mat-error>
+                <span *ngIf="!gameForm.get('Title').valid && gameForm.get('Title').touched">The game's title must not
+                  be
+                  empty</span>
+              </mat-error>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field>
+                <input formControlName="Publisher" matInput placeholder="Publisher">
+              </mat-form-field>
+              <mat-error>
+                <span *ngIf="!gameForm.get('Publisher').valid && gameForm.get('Publisher').touched">Add a valid Name</span>
+              </mat-error>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field>
+                <input min="1900" max="2018" formControlName="Released" matInput placeholder="Release-Year">
+              </mat-form-field>
+              <mat-error>
+                <span *ngIf="!gameForm.get('Released').valid && gameForm.get('Released').touched">The Release-Year
+                  should
+                  be a valid number between 1900 and 2018</span>
+              </mat-error>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field>
+                <mat-select formControlName="GenreID" [(ngModel)]="game.GenreID">
+                  <mat-option></mat-option>
+                  <mat-option *ngFor="let genre of genres" [value]="genre.GenreID">
+                    {{ genre.GenreName }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>
+                  <span *ngIf="!gameForm.get('GenreID').valid && gameForm.get('GenreID').touched">Please select a valid
+                    Genre</span>
+                </mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td class="content-center">
+              <button mat-raised-button color="accent" (click)="cancelEditMode()">Cancel</button>
+              <button mat-raised-button color="primary" [disabled]="!gameForm.valid || IsAccepted==0">Submit</button>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+</div>
+
+<div class="error-line" *ngIf="error">
+  <p> There was an error with the connection, please try again later! </p>
+</div>

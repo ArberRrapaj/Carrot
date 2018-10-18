@@ -74,7 +74,7 @@ export class GamesComponent implements OnInit {
       console.log(genres);
       if (genres !== null && genres.length !== 0) {
         this.genres = genres.reduce(function(genreMap, obj) {
-          genreMap[obj.GenreID] = obj.GenreID;
+          genreMap[obj.GenreID] = obj.GenreName;
           return genreMap;
         }, {});
       } else { this.error = true; }
