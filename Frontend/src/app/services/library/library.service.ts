@@ -44,8 +44,9 @@ export class LibraryService {
    * @param body body containing 'GameID' - The Game's ID
    */
   addGameToLibrary (username: string, library: Library): Observable<String> {
-    return this.http.post<String>(this.librariesUrl, library, httpOptions).pipe(
-      // tap((game: string) => this.notificationService.log(game)),
+    const url = this.librariesUrl + '/' + username;
+    return this.http.post<String>(url, library, httpOptions).pipe(
+      tap((game: string) => this.notificationService.log(game)),
       catchError(this.errorService.handleError<String>('Adding Game To Library'))
     );
   }
@@ -57,10 +58,10 @@ export class LibraryService {
    * @param gameID The Game's ID
    */
   removeGameOffLibrary (username: string, gameID: number): Observable<String> {
-    const url = `${this.librariesUrl}/${gameID}`;
+    const url = `${this.librariesUrl}/${username}/${gameID}`;
 
     return this.http.delete<String>(url, httpOptions).pipe(
-      // tap(_ => this.notificationService.log('Successfully deleted Game')),
+      tap(_ => this.notificationService.log('Successfully deleted Game')),
       catchError(this.errorService.handleError<String>('Removing Game from Library'))
     );
   }

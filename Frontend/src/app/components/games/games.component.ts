@@ -9,7 +9,10 @@ import { Game } from '../../classes/game';
 import { GameService } from '../../services/game/game.service';
 import { Genre } from '../../classes/genre';
 import { GenreService } from '../../services/genre/genre.service';
+import { Library } from '../../classes/library';
+import { LibraryService } from '../../services/library/library.service';
 import { NotificationService } from '../../services/notification/notification.service';
+
 
 /* Grid column map */
 const cols_map = new Map([
@@ -37,6 +40,7 @@ export class GamesComponent implements OnInit {
     private notificationService: NotificationService,
     private gameService: GameService,
     private genreService: GenreService,
+    private libraryService: LibraryService,
     private spinner: NgxSpinnerService,
     private observableMedia: ObservableMedia
   ) { }
@@ -98,8 +102,15 @@ export class GamesComponent implements OnInit {
     }
   }
 
-  addToLibrary(): void {
+  addToLibrary(gameID: number): void {
     console.log('Add to Library-Called');
+    const username = 'BubblegumPlayer';
+
+    const library = new Library(gameID);
+    this.libraryService.addGameToLibrary(username, library)
+    .subscribe(message => {
+      console.log(message);
+    });
   }
 
   deleteGame(): void {

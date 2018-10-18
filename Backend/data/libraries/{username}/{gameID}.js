@@ -24,7 +24,7 @@ module.exports = {
 
     User.getUserByUsername(username, function (err, user) {
       if (err) callback(err, { 'status': 500, 'data': err.message })
-      else if (user !== null) {
+      else if (user !== null && user !== undefined) {
         User.deleteGameOffLibrary(user.UserID, gameID, function (err) {
           if (err) callback(err, { 'status': 500, 'data': err.message })
           else callback(err, { 'status': 200, 'data': 'Removed game from Library' })

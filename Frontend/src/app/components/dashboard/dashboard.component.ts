@@ -103,8 +103,14 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  removeFromLibrary(): void {
+  removeFromLibrary(game: Game): void {
+    const username = 'BubblegumPlayer';
     console.log('Remove-from-Library-Called');
+    this.libraryService.removeGameOffLibrary(username, game.GameID)
+      .subscribe(message => {
+        console.log(message);
+        if (message != null) { this.games = this.games.filter(h => h !== game); }
+      });
   }
 
 }
