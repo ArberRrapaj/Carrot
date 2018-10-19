@@ -111,9 +111,11 @@ export class GameService {
    * @param gameID The Game&#39;s ID
    * @param body The Game's new data (Game-Object)
    */
-  updateGame (game: Game): Observable<String> {
-    return this.http.put<String>(this.gamesUrl, game, httpOptions).pipe(
-      // tap(_ => this.notificationService.log('Successfully updated game')),
+  updateGame (gameID: number, game: Game): Observable<String> {
+    const url = `${this.gamesUrl}/${gameID}`;
+
+    return this.http.put<String>(url, game, httpOptions).pipe(
+      tap(_ => this.notificationService.log('Successfully updated game')),
       catchError(this.errorService.handleError<any>('Updating Game'))
     );
   }

@@ -5,6 +5,43 @@
 
 <div *ngIf="loaded && !error">
 
+
+  <mat-card id="game-card" *ngIf="!editMode">
+    <div id="card-header">
+      <div>
+        <mat-card-title>{{game.Title}}</mat-card-title>
+        <mat-card-subtitle>{{game.Released}}</mat-card-subtitle>
+      </div>
+      <img *ngIf="!game.Image" src="../../assets/no-cover.png">
+      <img *ngIf="game.Image" src="{{game.Image}}">
+    </div>
+    <!-- Actual content starts from here -->
+    <mat-card-content>
+      <table id="information-table">
+        <tr>
+          <th> Publisher </th>
+          <td> {{ game.Publisher || 'n/a' }} </td>
+        </tr>
+        <tr>
+          <th> Release-Year </th>
+          <td> {{ game.Released || 'n/a' }} </td>
+        </tr>
+        <tr>
+          <th> Genre </th>
+          <td> {{ genre.GenreName }} </td>
+        </tr>
+      </table>
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-card-actions>
+        <button mat-raised-button class="card-button" color="accent" (click)="goToGames()">Cancel</button>
+        <button mat-raised-button class="card-button" color="primary" (click)="addToLibrary(game.GameID)">Add</button>
+        <button mat-raised-button class="card-button" color="primary" (click)="enterEditMode()">Edit</button>
+      </mat-card-actions>
+    </mat-card-footer>
+  </mat-card>
+
+
   <mat-card id="game-card" *ngIf="editMode">
     <!-- Title of an Card -->
     <mat-card-title></mat-card-title>
@@ -16,7 +53,7 @@
           <img *ngIf="!Image" id="imageurl" mat-card-image src="../../assets/no-cover.png">
           <img *ngIf="Image" id="imageurl" mat-card-image src="{{Image}}">
 
-          <div id="imageActions">
+          <div id="image-actions">
             <button id="uploadButton" type="button" mat-raised-button color="accent" (click)="image.click()">Upload
               Image</button>
             <button id="deleteButton" type="button" mat-raised-button color="warn" (click)="deleteImage()">Delete Image</button>
@@ -61,9 +98,9 @@
           <tr>
             <td>
               <mat-form-field>
-                <mat-select formControlName="GenreID" [(ngModel)]="game.GenreID">
+                <mat-select formControlName="GenreID" [(ngModel)]="game.GenreID" placeholder="Genre" label="Genre">
                   <mat-option></mat-option>
-                  <mat-option *ngFor="let genre of genres" [value]="genre.GenreID">
+                  <mat-option *ngFor="let genre of genres | orderby: 'GenreName'" [value]="genre.GenreID">
                     {{ genre.GenreName }}
                   </mat-option>
                 </mat-select>
@@ -74,15 +111,15 @@
               </mat-form-field>
             </td>
           </tr>
-          <tr>
-            <td class="content-center">
-              <button mat-raised-button color="accent" (click)="cancelEditMode()">Cancel</button>
-              <button mat-raised-button color="primary" [disabled]="!gameForm.valid || IsAccepted==0">Submit</button>
-            </td>
-          </tr>
         </table>
       </form>
     </mat-card-content>
+    <mat-card-footer>
+      <mat-card-actions>
+        <button mat-raised-button color="accent" (click)="cancelEditMode()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="onFormSubmit(gameForm.value)" [disabled]="!gameForm.valid || IsAccepted==0">Submit</button>
+      </mat-card-actions>
+    </mat-card-footer>
   </mat-card>
 
 </div>

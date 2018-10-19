@@ -21,9 +21,9 @@
             <mat-card-title [innerHTML]="game.Title"></mat-card-title>
             <mat-card-subtitle>{{ game.Released || 'Year n/a' }}</mat-card-subtitle>
           </mat-card-header>
-          <img *ngIf="!game.Image" mat-card-image src="../../assets/no-cover.png" routerLink="/games/detail/{{game.GameID}}">
-          <img *ngIf="game.Image" mat-card-image src="{{game.Image}}" routerLink="/games/detail/{{game.GameID}}">
-          <mat-card-content routerLink="/games/game.GameID">
+          <img *ngIf="!game.Image" mat-card-image src="../../assets/no-cover.png" routerLink="/games/{{game.GameID}}">
+          <img *ngIf="game.Image" mat-card-image src="{{game.Image}}" routerLink="/games/{{game.GameID}}">
+          <mat-card-content routerLink="/games/{{game.GameID}}">
 
             <p> Publisher: {{ game.Publisher || 'n/a'}} </p>
             <p> Genre: {{ genres[game.GenreID] }} </p>
@@ -31,7 +31,7 @@
           <mat-card-footer>
             <mat-card-actions>
               <button class="card-button" mat-raised-button (click)="addToLibrary(game.GameID)" color="primary">Add</button>
-              <button class="card-button" mat-raised-button routerLink="/games/detail/{{game.GameID}}/edit" color="accent">Edit</button>
+              <button class="card-button" mat-raised-button routerLink="/games/{{game.GameID}}/edit" color="accent">Edit</button>
               <button class="card-button" mat-raised-button (click)="deleteGame(game)" color="warn">Delete</button>
             </mat-card-actions>
           </mat-card-footer>
@@ -47,6 +47,6 @@
 
 </div>
 
-<div class="error-line" *ngIf="error">
+<div id="error-line" *ngIf="error">
   <p> There was an error with the connection, please try again later! </p>
 </div>

@@ -8,6 +8,8 @@ import { Game } from 'src/app/classes/game';
 import { GameService } from '../../services/game/game.service';
 import { Genre } from '../../classes/genre';
 import { GenreService } from '../../services/genre/genre.service';
+import { Library } from '../../classes/library';
+import { LibraryService } from '../../services/library/library.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
@@ -37,6 +39,7 @@ export class GameDetailComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private gameService: GameService,
     private genreService: GenreService,
+    private libraryService: LibraryService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
     private router: Router,
@@ -72,13 +75,13 @@ export class GameDetailComponent implements OnInit {
         } else {
           this.game = game;
 
-          this.gameForm.get('GenreID').setValue(game.GenreID);
-          this.gameForm.get('Title').setValue(game.Title);
-          this.gameForm.get('Publisher').setValue(game.Publisher);
-          this.gameForm.get('Released').setValue(game.Released);
-          this.Image = game.Image;
-  
-          if ( !this.editMode ) { this.getGenre(game.GenreID); }
+          if (this.editMode) {
+            this.gameForm.get('GenreID').setValue(game.GenreID);
+            this.gameForm.get('Title').setValue(game.Title);
+            this.gameForm.get('Publisher').setValue(game.Publisher);
+            this.gameForm.get('Released').setValue(game.Released);
+            this.Image = game.Image;
+          } else { this.getGenre(game.GenreID); }
         }
       } else {
         this.error = true;
@@ -138,12 +141,33 @@ export class GameDetailComponent implements OnInit {
 
   // Executed When Form Is Submitted
   onFormSubmit(game) {
-    console.log(game);
+    game.Image = this.Image;
+    console.log('Received this game from form: ', game);
     if ( game.Image == null || game.Image === '') { delete game.Image; }
     if ( game.Publisher == null || game.Publisher === '') { delete game.Publisher; }
     if ( game.Released == null || game.Released === '') { delete game.Released; }
 
-    console.log(game);
+    console.log('Submitting this game: ', game);
+    this.gameService.updateGame(this.game.GameID, game)
+    .subscribe( result => {
+      if (result != null && result.startsWith('Successfully updated game') ) { this.cancelEditMode(); }
+      // console.log(result);
+    });
+  }
+
+  addToLibrary(gameID: number): void {
+    const username = 'BubblegumPlayer';
+
+    const library = new Library(gameID);
+    this.libraryService.addGameToLibrary(username, library)
+    .subscribe(message => {
+      console.log(message);
+    });
+  }
+
+  enterEditMode() {
+    const url = this.router.url + '/edit';
+    this.router.navigate([url]);
   }
 
   cancelEditMode() {
