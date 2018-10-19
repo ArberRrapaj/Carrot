@@ -5,7 +5,6 @@
 
 <div *ngIf="loaded && !error">
 
-
   <mat-card id="game-card" *ngIf="!editMode">
     <div id="card-header">
       <div>
@@ -15,7 +14,6 @@
       <img *ngIf="!game.Image" src="../../assets/no-cover.png">
       <img *ngIf="game.Image" src="{{game.Image}}">
     </div>
-    <!-- Actual content starts from here -->
     <mat-card-content>
       <table id="information-table">
         <tr>
@@ -43,10 +41,6 @@
 
 
   <mat-card id="game-card" *ngIf="editMode">
-    <!-- Title of an Card -->
-    <mat-card-title></mat-card-title>
-
-    <!-- Actual content starts from here -->
     <mat-card-content>
       <form [formGroup]="gameForm" (ngSubmit)="onFormSubmit(gameForm.value)">
         <div id="imageTable">
@@ -98,7 +92,7 @@
           <tr>
             <td>
               <mat-form-field>
-                <mat-select formControlName="GenreID" [(ngModel)]="game.GenreID" placeholder="Genre" label="Genre">
+                <mat-select formControlName="GenreID" [(ngModel)]="game.GenreID" placeholder="Genre" label="Genre" required>
                   <mat-option></mat-option>
                   <mat-option *ngFor="let genre of genres | orderby: 'GenreName'" [value]="genre.GenreID">
                     {{ genre.GenreName }}

@@ -1,3 +1,146 @@
-<p>
-  user-detail works!
-</p>
+<h2 id="tab-title" *ngIf="!editMode">User Profile</h2>
+<h2 id="tab-title" *ngIf="editMode">Profile Edit</h2>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="large" color="#fe6100" type="pacman"></ngx-spinner>
+
+<div *ngIf="loaded && !error">
+
+  <mat-card id="user-card" *ngIf="!editMode">
+    <div id="card-header">
+      <img *ngIf="!user.Image" src="../../assets/no-image.png">
+      <img *ngIf="user.Image" src="{{ user.Image }}">
+      <div>
+        <mat-card-title> {{ user.Username }} </mat-card-title>
+        <mat-card-subtitle> {{ user.FirstName }} </mat-card-subtitle>
+      </div>
+    </div>
+    <mat-card-content>
+      <table id="information-table">
+        <tr>
+          <th> Country </th>
+          <td> {{ country || 'n/a' }} </td>
+        </tr>
+        <tr>
+          <th> Started gaming in </th>
+          <td> {{ user.Start || 'n/a' }} </td>
+        </tr>
+        <tr>
+          <th> About </th>
+          <td> {{ user.About || 'This user hasn\'t shared any information yet' }} </td>
+        </tr>
+      </table>
+
+      <mat-card id="game-card" *ngIf="game">
+        <div id="card-header">
+          <div>
+            <mat-card-title>{{game.Title}}</mat-card-title>
+            <mat-card-subtitle>{{game.Released}}</mat-card-subtitle>
+          </div>
+          <img *ngIf="!game.Image" src="../../assets/no-cover.png">
+          <img *ngIf="game.Image" src="{{ game.Image }}">
+        </div>
+      </mat-card>
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-card-actions>
+        <button mat-raised-button class="card-button" color="accent" (click)="goToDashboard()">Cancel</button>
+        <button mat-raised-button class="card-button" color="primary" (click)="enterEditMode()">Edit</button>
+      </mat-card-actions>
+    </mat-card-footer>
+  </mat-card>
+
+
+  <mat-card id="user-card" *ngIf="editMode">
+    <mat-card-content>
+      <form [formGroup]="userForm" (ngSubmit)="onFormSubmit(userForm.value)">
+        <div id="imageTable">
+          <img *ngIf="!Image" id="imageurl" mat-card-image src="../../assets/no-image.png">
+          <img *ngIf="Image" id="imageurl" mat-card-image src="{{Image}}">
+          <div id="image-actions">
+            <button id="uploadButton" type="button" mat-raised-button color="accent" (click)="image.click()">Upload
+              Image</button>
+            <button id="deleteButton" type="button" mat-raised-button color="warn" (click)="deleteImage()">Delete Image</button>
+            <input #image name="imagedata" type="file" id="imagedata" class="hidden" accept="image/*" (change)="onChangeImage($event)">
+          </div>
+        </div>
+        <table id="formTable">
+          <tr>
+            <td>
+              <mat-form-field>
+                <input formControlName="FirstName" matInput placeholder="First name">
+              </mat-form-field>
+              <mat-error>
+                <span *ngIf="!userForm.get('FirstName').valid && userForm.get('FirstName').touched">Try writing your
+                  name without special characters and digits.</span>
+              </mat-error>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field>
+                <input min="1900" max="2018" formControlName="Start" matInput placeholder="Started gaming in">
+              </mat-form-field>
+              <mat-error>
+                <span *ngIf="!userForm.get('Start').valid && userForm.get('Start').touched">The Start-Year
+                  should
+                  be a valid number between 1900 and 2018</span>
+              </mat-error>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field>
+                <mat-select formControlName="CountryID" [(ngModel)]="user.CountryID" placeholder="Country" label="Country">
+                  <mat-option></mat-option>
+                  <mat-option *ngFor="let country of countries" [value]="country.CountryID">
+                    {{ country.CountryName }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>
+                  <span *ngIf="!userForm.get('CountryID').valid && userForm.get('CountryID').touched">Please select a valid
+                    country</span>
+                </mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field>
+                <textarea formControlName="About" matInput placeholder="About me"></textarea>
+                </mat-form-field>
+                <mat-error>
+                  <span *ngIf="!userForm.get('About').valid && userForm.get('About').touched">Your 'About' seems to include weird characters, please remove those</span>
+                </mat-error>
+              </td>
+            </tr>
+            <tr>
+                <td>
+                  <mat-form-field>
+                    <mat-select formControlName="FavouriteGameID" [(ngModel)]="user.FavouriteGameID" placeholder="Your favourite Game" label="Your favourite Game">
+                      <mat-option></mat-option>
+                      <mat-option *ngFor="let game of games | orderby: 'Title'" [value]="game.GameID">
+                        {{ game.Title }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error>
+                      <span *ngIf="!userForm.get('FavouriteGameID').valid && userForm.get('FavouriteGameID').touched">Please select a valid game</span>
+                    </mat-error>
+                  </mat-form-field>
+                </td>
+              </tr>
+        </table>
+      </form>
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-card-actions>
+        <button mat-raised-button color="accent" (click)="cancelEditMode()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="onFormSubmit(userForm.value)" [disabled]="!userForm.valid || IsAccepted==0">Submit</button>
+      </mat-card-actions>
+    </mat-card-footer>
+  </mat-card>
+
+</div>
+
+<div class="error-line" *ngIf="error">
+  <p> There was an error with the connection, please try again later! </p>
+</div>

@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'games/:gameID', component: GameDetailComponent },
   { path: 'games/:gameID/edit', component: GameDetailComponent },
   { path: 'users/:username', component: UserDetailComponent },
+  { path: 'users/:username/edit', component: UserDetailComponent },
 ];
 
 @NgModule({

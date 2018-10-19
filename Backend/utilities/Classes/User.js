@@ -55,7 +55,7 @@ class User {
   }
 
   getMappedObject () {
-    return Object.freeze({
+    return {
       Username: this._username,
       FirstName: this._firstName,
       CountryID: this._countryID,
@@ -63,7 +63,7 @@ class User {
       Start: this._start,
       FavouriteGameID: this._favouriteGameID,
       About: this._about
-    })
+    }
   }
 
   getPasswordObject (callback) {
@@ -84,7 +84,7 @@ class User {
     this.createPassword(function (err, message) {
       if (err) callback(err, message)
       else {
-        var object = Object.freeze({
+        var object = {
           Username: this._username,
           Password: this._password,
           Salt: this._salt,
@@ -94,7 +94,7 @@ class User {
           Start: this._start,
           FavouriteGameID: this._favouriteGameID,
           About: this._about
-        })
+        }
         callback(false, object)
       }
     }.bind(this))
@@ -112,7 +112,7 @@ User.schema = JOI.object().keys({
   Image: JOI.string().optional().allow(null, ''),
   Start: JOI.number().integer().min(1900).max(2018).optional().allow(null, ''),
   FavouriteGameID: JOI.number().integer().optional().allow(null, '').min(1),
-  About: JOI.string().regex(/[\w,:$;.\-&%()!?#+*|\\]/).min(0).max(200).optional().allow(null, '')
+  About: JOI.string().regex(/[\w,:$;.\-&%()!?#+*|\\]/).min(1).max(200).optional().allow(null, '')
 })
 User.schemaPassword = JOI.object().keys({
   Password: JOI.string().min(6).required()
@@ -241,9 +241,13 @@ User.getUserByUsername = function (username, callback) {
 }
 
 User.updateUser = function (user, callback) {
-  console.log('Update-User-Username: ', user.Username)
+  const username = user.Username
 
-  DB.query('UPDATE Users SET ? WHERE Username = ?', [user, user.Username], function (err, results) {
+  console.log('Update-User-Username: ', username)
+  delete user['Username']
+  console.log(user)
+
+  DB.query('UPDATE Users SET ? WHERE Username = ?', [user, username], function (err, results) {
     console.log('UpdateUser: ', results)
     callback(err, results)
   })

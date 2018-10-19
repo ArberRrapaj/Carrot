@@ -47,8 +47,8 @@ export class UserService {
    *
    * @param username The User&#39;s username
    */
-  getUser(id: number): Observable<User> {
-    const url = `${this.usersUrl}/${id}`;
+  getUser( username: string): Observable<User> {
+    const url = `${this.usersUrl}/${username}`;
 
     return this.http.get<User>(url).pipe(
       // tap(user => this.notificationService.log('Successfully loaded User')),
@@ -103,8 +103,10 @@ export class UserService {
    * @param username The User's username
    * @param body The User's updated information
    */
-  updateUser (user: User): Observable<String> {
-    return this.http.put(this.usersUrl, user, httpOptions).pipe(
+  updateUser (username: string, user: User): Observable<String> {
+    const url = `${this.usersUrl}/${username}`;
+
+    return this.http.put(url, user, httpOptions).pipe(
       // tap(_ => this.notificationService.log('Successfully updated user')),
       catchError(this.errorService.handleError<any>('Updating User'))
     );
