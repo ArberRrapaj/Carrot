@@ -38,7 +38,6 @@ export class UserDetailComponent implements OnInit {
   Image = '';
   @ViewChild('image') imageInput: ElementRef;
 
-
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
     private gameService: GameService,
@@ -50,12 +49,12 @@ export class UserDetailComponent implements OnInit {
 
     // To initialize FormGroup
     this.userForm = formBuilder.group({
-      'CountryID': [null, null],
       'FirstName': [null, Validators.compose([ Validators.pattern(/([A-Z\sa-z]+$)/), Validators.minLength(1), Validators.maxLength(30)])],
-      'About': [null, Validators.compose([Validators.pattern(/[\w,:$;.\-&%()!?#+*|\\]+$/),
-                                          Validators.minLength(1), Validators.maxLength(200)])],
       'Start': [null, Validators.compose([Validators.pattern(/([0-9]+$)/), Validators.min(1900), Validators.max(2018)])],
-      'FavouriteGameID': [null, null]
+      'CountryID': [null, null],
+      'FavouriteGameID': [null, null],
+      'About': [null, Validators.compose([Validators.pattern(/[\w,:$;.\-&%()!?#+*|\\]+$/),
+                                          Validators.minLength(1), Validators.maxLength(200)])]
     });
 
   }

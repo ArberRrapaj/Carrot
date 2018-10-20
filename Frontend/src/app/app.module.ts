@@ -7,9 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule, MatButtonModule, MatCardModule, MatGridListModule,
   MatIconModule, MatListModule, MatSidenavModule, MatTooltipModule, MatAutocompleteModule,
   MatFormFieldModule, MatProgressSpinnerModule, MatMenuModule, MatInputModule,
-  MatSnackBarModule,
-  MatSelectModule,
-  MatOptionModule
+  MatSnackBarModule, MatTabsModule, MatSelectModule, MatOptionModule
 } from '@angular/material';
 
 import { BsDropdownModule } from 'ngx-bootstrap';
@@ -77,7 +75,8 @@ import { GameNewComponent } from './components/game-new/game-new.component';
     MatInputModule,
     MatSnackBarModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

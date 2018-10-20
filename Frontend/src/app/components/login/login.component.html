@@ -1,0 +1,82 @@
+<div class="wrapper">
+    <div id="formContent">
+        <!-- Icon -->
+        <div>
+            <img src="../../../assets/carrot.jpg" id="icon" alt="Cover" />
+        </div>
+
+        <mat-tab-group mat-align-tabs="center">
+
+            <mat-tab label="Sign In">
+                Login lol
+            </mat-tab>
+            <mat-tab label="Sign Up">
+                <!-- Sign Up Form -->
+                <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit(userForm.value)">
+                    <table id="formTable">
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <input formControlName="FirstName" matInput placeholder="First name">
+                                    <mat-error *ngIf="!registerForm.get('FirstName').valid && registerForm.get('FirstName').touched">
+                                        Try writing your name without special characters and digits.
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <input min="1900" max="2018" formControlName="Start" matInput placeholder="Started gaming in">
+                                    <mat-error *ngIf="!registerForm.get('Start').valid && registerForm.get('Start').touched">
+                                        The Start-Year should be a valid number between 1900 and 2018
+                                    </mat-error>
+                                </mat-form-field>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-select formControlName="CountryID" placeholder="Country" label="Country">
+                                        <mat-option></mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="!registerForm.get('CountryID').valid && registerForm.get('CountryID').touched">
+                                        Please select a valid country
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <textarea formControlName="About" matInput placeholder="About me"></textarea>
+                                    <mat-error *ngIf="!registerForm.get('About').valid && registerForm.get('About').touched">
+                                        Your 'About' seems to include weird characters, please remove those
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-select formControlName="FavouriteGameID" placeholder="Your favourite Game"
+                                        label="Your favourite Game">
+                                        <mat-option></mat-option>
+
+                                    </mat-select>
+                                    <mat-error *ngIf="!registerForm.get('FavouriteGameID').valid && registerForm.get('FavouriteGameID').touched">
+                                        Please select a valid game
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </mat-tab>
+        </mat-tab-group>
+
+
+
+    </div>
+</div>

@@ -68,23 +68,20 @@
             <td>
               <mat-form-field>
                 <input formControlName="FirstName" matInput placeholder="First name">
+                <mat-error *ngIf="!userForm.get('FirstName').valid && userForm.get('FirstName').touched">
+                  Try writing your name without special characters and digits.
+                </mat-error>
               </mat-form-field>
-              <mat-error>
-                <span *ngIf="!userForm.get('FirstName').valid && userForm.get('FirstName').touched">Try writing your
-                  name without special characters and digits.</span>
-              </mat-error>
             </td>
           </tr>
           <tr>
             <td>
               <mat-form-field>
                 <input min="1900" max="2018" formControlName="Start" matInput placeholder="Started gaming in">
+                <mat-error *ngIf="!userForm.get('Start').valid && userForm.get('Start').touched">
+                  The Start-Year should be a valid number between 1900 and 2018
+                </mat-error>
               </mat-form-field>
-              <mat-error>
-                <span *ngIf="!userForm.get('Start').valid && userForm.get('Start').touched">The Start-Year
-                  should
-                  be a valid number between 1900 and 2018</span>
-              </mat-error>
             </td>
           </tr>
           <tr>
@@ -96,9 +93,8 @@
                     {{ country.CountryName }}
                   </mat-option>
                 </mat-select>
-                <mat-error>
-                  <span *ngIf="!userForm.get('CountryID').valid && userForm.get('CountryID').touched">Please select a valid
-                    country</span>
+                <mat-error *ngIf="!userForm.get('CountryID').valid && userForm.get('CountryID').touched">
+                  Please select a valid country
                 </mat-error>
               </mat-form-field>
             </td>
@@ -107,27 +103,28 @@
             <td>
               <mat-form-field>
                 <textarea formControlName="About" matInput placeholder="About me"></textarea>
-                </mat-form-field>
-                <mat-error>
-                  <span *ngIf="!userForm.get('About').valid && userForm.get('About').touched">Your 'About' seems to include weird characters, please remove those</span>
+                <mat-error *ngIf="!userForm.get('About').valid && userForm.get('About').touched">
+                  Your 'About' seems to include weird characters, please remove those
                 </mat-error>
-              </td>
-            </tr>
-            <tr>
-                <td>
-                  <mat-form-field>
-                    <mat-select formControlName="FavouriteGameID" [(ngModel)]="user.FavouriteGameID" placeholder="Your favourite Game" label="Your favourite Game">
-                      <mat-option></mat-option>
-                      <mat-option *ngFor="let game of games | orderby: 'Title'" [value]="game.GameID">
-                        {{ game.Title }}
-                      </mat-option>
-                    </mat-select>
-                    <mat-error>
-                      <span *ngIf="!userForm.get('FavouriteGameID').valid && userForm.get('FavouriteGameID').touched">Please select a valid game</span>
-                    </mat-error>
-                  </mat-form-field>
-                </td>
-              </tr>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field>
+                <mat-select formControlName="FavouriteGameID" [(ngModel)]="user.FavouriteGameID" placeholder="Your favourite Game"
+                  label="Your favourite Game">
+                  <mat-option></mat-option>
+                  <mat-option *ngFor="let game of games | orderby: 'Title'" [value]="game.GameID">
+                    {{ game.Title }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!userForm.get('FavouriteGameID').valid && userForm.get('FavouriteGameID').touched">
+                  Please select a valid game
+                </mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
         </table>
       </form>
     </mat-card-content>

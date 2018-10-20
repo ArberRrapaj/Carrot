@@ -59,34 +59,30 @@
             <td>
               <mat-form-field>
                 <input formControlName="Title" matInput placeholder="Title" required>
+                <mat-error *ngIf="!gameForm.get('Title').valid && gameForm.get('Title').touched">
+                  The game's title must not be empty
+                </mat-error>
               </mat-form-field>
-              <mat-error>
-                <span *ngIf="!gameForm.get('Title').valid && gameForm.get('Title').touched">The game's title must not
-                  be
-                  empty</span>
-              </mat-error>
             </td>
           </tr>
           <tr>
             <td>
               <mat-form-field>
                 <input formControlName="Publisher" matInput placeholder="Publisher">
+                <mat-error *ngIf="!gameForm.get('Publisher').valid && gameForm.get('Publisher').touched">
+                  Add a valid Name
+                </mat-error>
               </mat-form-field>
-              <mat-error>
-                <span *ngIf="!gameForm.get('Publisher').valid && gameForm.get('Publisher').touched">Add a valid Name</span>
-              </mat-error>
             </td>
           </tr>
           <tr>
             <td>
               <mat-form-field>
                 <input min="1900" max="2018" formControlName="Released" matInput placeholder="Release-Year">
+                <mat-error *ngIf="!gameForm.get('Released').valid && gameForm.get('Released').touched">
+                  The Release-Year should be a valid number between 1900 and 2018
+                </mat-error>
               </mat-form-field>
-              <mat-error>
-                <span *ngIf="!gameForm.get('Released').valid && gameForm.get('Released').touched">The Release-Year
-                  should
-                  be a valid number between 1900 and 2018</span>
-              </mat-error>
             </td>
           </tr>
           <tr>
@@ -98,9 +94,8 @@
                     {{ genre.GenreName }}
                   </mat-option>
                 </mat-select>
-                <mat-error>
-                  <span *ngIf="!gameForm.get('GenreID').valid && gameForm.get('GenreID').touched">Please select a valid
-                    Genre</span>
+                <mat-error *ngIf="!gameForm.get('GenreID').valid && gameForm.get('GenreID').touched">
+                  Please select a valid Genre
                 </mat-error>
               </mat-form-field>
             </td>

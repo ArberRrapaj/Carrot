@@ -1,46 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass']
+  styleUrls: ['./login.component.sass'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
-  regiForm: FormGroup;
-  FirstName = '';
-  LastName = '';
-  Address = '';
-  DOB: Date = null;
-  Gender = '';
-  Blog = '';
-  Email = '';
-  IsAccepted = 0;
+  registerForm: FormGroup;
+  loading = false;
+  submitted = false;
 
   constructor(private formBuilder: FormBuilder) {
-    // To initialize FormGroup
-    this.regiForm = formBuilder.group({
-      'FirstName' : [null, Validators.required],
-      'LastName' : [null, Validators.required],
-      'Address' : [null, Validators.compose([Validators.required, Validators.minLength(30), Validators.maxLength(500)])],
-      'DOB' : [null, Validators.required],
-      'Gender': [null, Validators.required],
-      'Blog': [null, Validators.required],
-      'Email': [null, Validators.compose([Validators.required, Validators.email])],
-      'IsAccepted': [null]
-    });
   }
 
   ngOnInit() {
-  }
+    this.registerForm = this.formBuilder.group({
+      'Username': ['', Validators.required, Validators.pattern(/^\w+$/), Validators.min(1), Validators.max(30)],
+      'Password': ['', [Validators.required, Validators.minLength(6)]],
 
-  // On Change event of Toggle Button
-  onChange(event: any) {
-    if (event.checked === true) {
-      this.IsAccepted = 1;
-    } else {
-      this.IsAccepted = 0;
-    }
+      'FirstName': [null, Validators.compose([ Validators.pattern(/([A-Z\sa-z]+$)/), Validators.minLength(1), Validators.maxLength(30)])],
+      'Start': [null, Validators.compose([Validators.pattern(/([0-9]+$)/), Validators.min(1900), Validators.max(2018)])],
+      'CountryID': [null, null],
+      'FavouriteGameID': [null, null],
+      'About': [null, Validators.compose([Validators.pattern(/[\w,:$;.\-&%()!?#+*|\\]+$/),
+                                          Validators.minLength(1), Validators.maxLength(200)])]
+  });
   }
 
   // Executed When Form Is Submitted
