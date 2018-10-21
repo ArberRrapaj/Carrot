@@ -36,7 +36,7 @@ export class UserService {
    * Get a list of all users
    *
    */
-  getUsers (): Observable<User[]> {
+  getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.usersUrl)
       .pipe(
         // tap(users => this.notificationService.log('Successfully loaded users')),
@@ -49,7 +49,7 @@ export class UserService {
    *
    * @param username The User&#39;s username
    */
-  getUser( username: string): Observable<User> {
+  getUser(username: string): Observable<User> {
     const url = `${this.usersUrl}/${username}`;
 
     return this.http.get<User>(url).pipe(
@@ -78,9 +78,9 @@ export class UserService {
    *
    * @param body The User's information
    */
-  addUser (user: User): Observable<String> {
+  addUser(user: User): Observable<String> {
     return this.http.post<String>(this.usersUrl, user, httpOptions).pipe(
-      tap((user: string) => this.notificationService.log(user)),
+      tap((result: string) => this.notificationService.log(result)),
       catchError(this.errorService.handleError<String>('Adding User'))
     );
   }
@@ -90,7 +90,7 @@ export class UserService {
    *
    * @param username The User&#39;s username
    */
-  deleteUser (username: string): Observable<String> {
+  deleteUser(username: string): Observable<String> {
     const url = `${this.usersUrl}/${username}`;
 
     return this.http.delete<String>(url, httpOptions).pipe(
@@ -105,7 +105,7 @@ export class UserService {
    * @param username The User's username
    * @param body The User's updated information
    */
-  updateUser (username: string, user: User): Observable<String> {
+  updateUser(username: string, user: User): Observable<String> {
     const url = `${this.usersUrl}/${username}`;
 
     return this.http.put(url, user, httpOptions).pipe(
@@ -119,9 +119,20 @@ export class UserService {
    *
    * @param body contains the &#39;Username&#39; and &#39;Password&#39; input
    */
-  loginUser ( login: Login): Observable<String> {
+  loginUser(login: Login): Observable<String> {
     return this.http.post<String>(this.loginUrl, login, httpOptions).pipe(
-      tap((user: string) => this.notificationService.log(user)),
+      tap((user: string | any) => this.notificationService.log(user)),
+
+      map( (user: string | any) => {
+        if ( typeof user === 'string') { this.notificationService.log(user); }
+
+        // login successful if there's a jwt token in the response
+        if (user && user.token) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+        return user;
+      }),
       catchError(this.errorService.handleError<String>('Log In'))
     );
   }
@@ -130,7 +141,7 @@ export class UserService {
 
   /**
    * Logs out current logged in user session
-   *
+   * localStorage.removeItem('currentUser');
    */
 
   /**

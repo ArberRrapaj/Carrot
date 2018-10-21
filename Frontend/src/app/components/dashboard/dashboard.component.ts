@@ -13,6 +13,7 @@ import { Library } from '../../classes/library';
 import { LibraryService } from '../../services/library/library.service';
 
 import { NotificationService } from '../../services/notification/notification.service';
+import { User } from 'src/app/classes/user';
 
 /* Grid column map */
 const cols_map = new Map([
@@ -29,6 +30,8 @@ const cols_map = new Map([
   styleUrls: ['./dashboard.component.sass']
 })
 export class DashboardComponent implements OnInit {
+  currentUser: User;
+
   games: Game[];
   cols: Observable<number>;
   genres: {};
@@ -41,7 +44,9 @@ export class DashboardComponent implements OnInit {
     private genreService: GenreService,
     private libraryService: LibraryService,
     private spinner: NgxSpinnerService,
-    private observableMedia: ObservableMedia) { }
+    private observableMedia: ObservableMedia) {
+      // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    }
 
   ngOnInit() {
     this.spinner.show();

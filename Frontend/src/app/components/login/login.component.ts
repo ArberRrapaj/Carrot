@@ -8,6 +8,7 @@ import { UserService } from '../../services/user/user.service';
 import { Country } from '../../classes/country';
 import { CountryService } from '../../services/country/country.service';
 import { Login } from 'src/app/classes/login';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -24,11 +25,15 @@ export class LoginComponent implements OnInit {
   countries: Country[];
   loaded: boolean;
   error: boolean;
+  returnUrl: string;
+
 
   constructor(private formBuilder: FormBuilder,
     private countryService: CountryService,
     private userService: UserService,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private route: ActivatedRoute,
+    private router: Router) {
     this.registerForm = this.formBuilder.group({
       'Username': ['', Validators.compose([Validators.required, Validators.pattern(/^\w+$/),
                                           Validators.minLength(3), Validators.maxLength(20)])],
@@ -50,6 +55,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.getCountries();
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   getCountries(): void {
@@ -86,7 +94,7 @@ export class LoginComponent implements OnInit {
 
     this.userService.loginUser( login )
     .subscribe( result => {
-      // if (result != null && result.startsWith('Successfully inserted user with username') ) {  }
+      if (result != null && result.startsWith('Successfully logged in') ) { this.router.navigate([this.returnUrl]); }
       console.log(result);
     });
   }
