@@ -29,6 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { GameNewComponent } from './components/game-new/game-new.component';
+import { ConfirmValidatorDirective } from './directives/confirm-validator/confirm-validator.directive';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { GameNewComponent } from './components/game-new/game-new.component';
     UserPasswordComponent,
     NavigationComponent,
     NotificationsComponent,
-    GameNewComponent
+    GameNewComponent,
+    ConfirmValidatorDirective
   ],
   imports: [
     BrowserModule,

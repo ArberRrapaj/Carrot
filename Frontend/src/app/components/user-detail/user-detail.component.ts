@@ -76,7 +76,8 @@ export class UserDetailComponent implements OnInit {
   getUser( username: string): void {
     this.userService.getUser( username )
     .subscribe( user => {
-      if (user !== null) {
+      console.log(user);
+      if (user != null) {
         if (user.UserID === -1) {
           this.goToDashboard();
         } else {

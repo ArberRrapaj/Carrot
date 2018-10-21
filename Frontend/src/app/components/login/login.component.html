@@ -1,3 +1,5 @@
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="large" color="#fe6100" type="pacman"></ngx-spinner>
+
 <div class="wrapper">
     <div id="formContent">
         <!-- Icon -->
@@ -5,41 +7,111 @@
             <img src="../../../assets/carrot.jpg" id="icon" alt="Cover" />
         </div>
 
-        <mat-tab-group mat-align-tabs="center">
+        <mat-tab-group *ngIf="loaded && !error">
 
-            <mat-tab label="Sign In">
-                Login lol
-            </mat-tab>
-            <mat-tab label="Sign Up">
-                <!-- Sign Up Form -->
-                <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit(userForm.value)">
+            <mat-tab active=true label="Sign In">
+                <!-- Login Form -->
+                <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit(loginForm.value)">
                     <table id="formTable">
                         <tr>
                             <td>
                                 <mat-form-field appearance="fill">
-                                    <input formControlName="FirstName" matInput placeholder="First name">
+                                    <mat-label>Username</mat-label>
+                                    <input formControlName="Username" matInput placeholder="Username" required>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Password</mat-label>
+                                    <input type="password" formControlName="Password" matInput placeholder="Password"
+                                        required>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                    <button mat-raised-button color="primary" [disabled]="!loginForm.valid || IsAccepted==0">Submit</button>
+                </form>
+            </mat-tab>
+            <mat-tab label="Sign Up">
+                <!-- Sign Up Form -->
+                <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit(registerForm.value)">
+                    <table id="formTable">
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Username</mat-label>
+                                    <input formControlName="Username" matInput placeholder="Username" required>
+                                    <mat-error *ngIf="!registerForm.get('Username').valid && registerForm.get('Username').touched">
+                                        Your username should be between 3 and 20 characters.
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Password</mat-label>
+                                    <input type="password" formControlName="Password" matInput placeholder="Password"
+                                        required>
+                                    <mat-error *ngIf="!registerForm.get('Password').valid && registerForm.get('Password').touched">
+                                        Your password must be at least 6 characters long.
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Confirm your password</mat-label>
+                                    <input type="password" formControlName="PasswordConfirm" matInput placeholder="Confirm Password"
+                                        required>
+                                    <mat-error *ngIf="pwConfirm.touched && (!pwConfirm.valid || pwConfirm.hasError('confirm'))">
+                                        Your Passwords don't match.
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>First Name</mat-label>
+                                    <input formControlName="FirstName" matInput placeholder="Geralt">
                                     <mat-error *ngIf="!registerForm.get('FirstName').valid && registerForm.get('FirstName').touched">
                                         Try writing your name without special characters and digits.
                                     </mat-error>
                                 </mat-form-field>
                             </td>
                         </tr>
+
                         <tr>
                             <td>
                                 <mat-form-field appearance="fill">
-                                    <input min="1900" max="2018" formControlName="Start" matInput placeholder="Started gaming in">
+                                    <mat-label>Started gaming in year...</mat-label>
+                                    <input min="1900" max="2018" formControlName="Start" matInput placeholder="2018">
                                     <mat-error *ngIf="!registerForm.get('Start').valid && registerForm.get('Start').touched">
                                         The Start-Year should be a valid number between 1900 and 2018
                                     </mat-error>
                                 </mat-form-field>
-
                             </td>
                         </tr>
+
                         <tr>
                             <td>
                                 <mat-form-field appearance="fill">
+                                    <mat-label>Country</mat-label>
                                     <mat-select formControlName="CountryID" placeholder="Country" label="Country">
                                         <mat-option></mat-option>
+                                        <mat-option *ngFor="let country of countries" [value]="country.CountryID">
+                                            {{ country.CountryName }}
+                                        </mat-option>
                                     </mat-select>
                                     <mat-error *ngIf="!registerForm.get('CountryID').valid && registerForm.get('CountryID').touched">
                                         Please select a valid country
@@ -47,23 +119,25 @@
                                 </mat-form-field>
                             </td>
                         </tr>
+
                         <tr>
                             <td>
                                 <mat-form-field appearance="fill">
-                                    <textarea formControlName="About" matInput placeholder="About me"></textarea>
+                                    <mat-label>About you</mat-label>
+                                    <textarea formControlName="About" matInput placeholder="Professional Tamagotchi player"></textarea>
                                     <mat-error *ngIf="!registerForm.get('About').valid && registerForm.get('About').touched">
                                         Your 'About' seems to include weird characters, please remove those
                                     </mat-error>
                                 </mat-form-field>
                             </td>
                         </tr>
+                        <!--
                         <tr>
                             <td>
                                 <mat-form-field appearance="fill">
                                     <mat-select formControlName="FavouriteGameID" placeholder="Your favourite Game"
                                         label="Your favourite Game">
                                         <mat-option></mat-option>
-
                                     </mat-select>
                                     <mat-error *ngIf="!registerForm.get('FavouriteGameID').valid && registerForm.get('FavouriteGameID').touched">
                                         Please select a valid game
@@ -71,12 +145,15 @@
                                 </mat-form-field>
                             </td>
                         </tr>
+                        -->
                     </table>
+                    <button mat-raised-button color="primary" [disabled]="!registerForm.valid || IsAccepted==0">Submit</button>
                 </form>
             </mat-tab>
         </mat-tab-group>
 
-
-
+        <div *ngIf="error">
+            <p id="error-line"> We're experiecing server problems at the moment, please try again later. </p>
+        </div>
     </div>
 </div>

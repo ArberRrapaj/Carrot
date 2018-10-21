@@ -12,9 +12,9 @@ module.exports = {
      * operationId: loginUser
      */
   post: function (req, res, callback) {
-    console.log('POST-Login')
-
     let body = req.body
+    console.log('POST-Login', body)
+
     let username = body.Username
     let password = body.Password
 

@@ -34,10 +34,9 @@ export class CountryService {
    * Get a list of all countries
    */
   getCountries (): Observable<Country[]> {
-    return this.http.get<Country[]>(this.countriesUrl)
-      .pipe(
+    return this.http.get<Country[]>(this.countriesUrl).pipe(
         // tap(countries => this.notificationService.log('Successfully loaded countries')),
-        catchError(this.errorService.handleError('Fetching Countries', []))
+        catchError(this.errorService.handleError<Country[]>('Fetching Countries'))
       );
   }
 

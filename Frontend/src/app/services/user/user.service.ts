@@ -8,6 +8,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../../classes/user';
 import { ErrorService } from '../error/error.service';
 import { NotificationService } from '../notification/notification.service';
+import { Login } from 'src/app/classes/login';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -24,6 +25,7 @@ const httpOptions = {
 })
 export class UserService {
   private usersUrl = 'http://localhost:3000/api/users';  // URL to web api
+  private loginUrl = 'http://localhost:3000/api/users/login';
 
   constructor(private http: HttpClient,
     private notificationService: NotificationService,
@@ -78,7 +80,7 @@ export class UserService {
    */
   addUser (user: User): Observable<String> {
     return this.http.post<String>(this.usersUrl, user, httpOptions).pipe(
-      // tap((user: string) => this.notificationService.log(user)),
+      tap((user: string) => this.notificationService.log(user)),
       catchError(this.errorService.handleError<String>('Adding User'))
     );
   }
@@ -117,6 +119,12 @@ export class UserService {
    *
    * @param body contains the &#39;Username&#39; and &#39;Password&#39; input
    */
+  loginUser ( login: Login): Observable<String> {
+    return this.http.post<String>(this.loginUrl, login, httpOptions).pipe(
+      tap((user: string) => this.notificationService.log(user)),
+      catchError(this.errorService.handleError<String>('Log In'))
+    );
+  }
 
 
 

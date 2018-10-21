@@ -106,7 +106,7 @@ class User {
  */
 
 User.schema = JOI.object().keys({
-  Username: JOI.string().regex(/^\w+$/).min(1).max(30).required(),
+  Username: JOI.string().regex(/^\w+$/).min(3).max(20).required(),
   FirstName: JOI.string().regex(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u).min(1).max(30).optional().allow(null),
   CountryID: JOI.number().integer().optional().allow(null, '').min(1),
   Image: JOI.string().optional().allow(null, ''),
@@ -197,7 +197,7 @@ User.saveUser = function (user, callback) {
 User.loginUser = function (username, password, callback) {
   console.log('loginUser')
 
-  User.checkPassword(function (err, result, internalError) {
+  User.checkPassword(username, password, function (err, result, internalError) {
     callback(err, result, internalError)
   })
 }
