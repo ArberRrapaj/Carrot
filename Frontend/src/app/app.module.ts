@@ -30,6 +30,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { GameNewComponent } from './components/game-new/game-new.component';
 import { ConfirmValidatorDirective } from './directives/confirm-validator/confirm-validator.directive';
+import { TokenInterceptor } from './interceptors/token-interceptor';
+import { AuthGuard } from './guards/auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,7 @@ import { ConfirmValidatorDirective } from './directives/confirm-validator/confir
     MatOptionModule,
     MatTabsModule
   ],
-  providers: [],
+  providers: [AuthGuard, TokenInterceptor],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

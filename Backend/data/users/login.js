@@ -22,7 +22,7 @@ module.exports = {
       if (err) {
         if (internalError) callback(err, { 'status': 500, 'data': results })
         else callback(err, { 'status': 400, 'data': results })
-      } else callback(err, { 'status': 200, 'data': results })
+      } else callback(err, { 'status': 200, 'data': { 'currentUser': username, 'token': results } })
     })
   }
 }

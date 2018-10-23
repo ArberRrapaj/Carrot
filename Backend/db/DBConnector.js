@@ -1,5 +1,4 @@
 const mysql = require('mysql')
-
 class DBConnector {
   constructor (conLimit, dbhost, dbuser, dbpassword, dbname) {
     this._connectionPool = mysql.createPool({
@@ -20,10 +19,10 @@ class DBConnector {
 const instance = (function () {
   var dbConnector = new DBConnector(
     1,
-    'localhost',
-    'root',
-    'rootroot',
-    'Carrot'
+    process.env.DB_HOST,
+    process.env.DB_USER,
+    process.env.DB_PASSWORD,
+    process.env.DB_DATABASE
   )
   console.log('DB izzda')
   return dbConnector
