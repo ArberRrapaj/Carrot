@@ -14,7 +14,7 @@ module.exports = {
   get: function getUserByName (req, res) {
     let provider = dataProvider['get']
     provider(req, res, function (err, data) {
-      console.log('Users-Search-Username-Get: ', data)
+      // console.log('Users-Search-Username-Get: ', data)
 
       res.status(data.status).json(data.data)
     })

@@ -149,11 +149,6 @@
         "summary": "Get a list of all users containing a given part of the username",
         "description": "",
         "operationId": "getUsersByUsername",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
         "produces": [
           "application/json"
         ],
@@ -187,11 +182,6 @@
         "summary": "Get user by user name",
         "description": "",
         "operationId": "getUserByUsername",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
         "produces": [
           "application/json"
         ],
@@ -293,11 +283,6 @@
         ],
         "summary": "Update user's passwords",
         "operationId": "updatePassword",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
         "produces": [
           "application/json"
         ],
@@ -721,11 +706,6 @@
         "summary": "Get Library of a user with all of his games",
         "description": "",
         "operationId": "getLibraryByUserID",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
         "produces": [
           "application/json"
         ],
@@ -760,11 +740,6 @@
         "summary": "Add a game to a users library",
         "description": "",
         "operationId": "addGameToLibrary",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
         "produces": [
           "application/json"
         ],
@@ -806,11 +781,6 @@
         ],
         "summary": "Remove a game out of a user's library",
         "operationId": "deleteGameOffLibrary",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
         "produces": [
           "application/json"
         ],
@@ -848,9 +818,18 @@
     }
   },
   "securityDefinitions": {
-    "Bearer": {
+    "carrot_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:games": "modify games in your account",
+        "read:games": "read your games"
+      }
+    },
+    "api_key": {
       "type": "apiKey",
-      "name": "Authorization",
+      "name": "api_key",
       "in": "header"
     }
   },

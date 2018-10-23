@@ -2,6 +2,7 @@ const JOI = require('joi')
 var DB = require('../../db/DBConnector')
 var Validator = require('../../utilities/ValidationHandler')
 var IDChecker = require('../../utilities/IDChecker')
+const jwt = require('jsonwebtoken')
 
 var Crypto = require('crypto')
 
@@ -198,7 +199,14 @@ User.loginUser = function (username, password, callback) {
   console.log('loginUser')
 
   User.checkPassword(username, password, function (err, result, internalError) {
-    callback(err, result, internalError)
+    if (err) callback(err, result, internalError)
+    else {
+      jwt.sign({ username: username, password: password }, process.env.AUTH_SECRET, { expiresIn: '10h', issuer: 'Carrot-Backend' }, function (err, token) {
+        console.log(token)
+        if (err) callback(err, token, true)
+        else callback(err, token, false)
+      })
+    }
   })
 }
 

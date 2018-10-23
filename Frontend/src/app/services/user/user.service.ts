@@ -120,18 +120,19 @@ export class UserService {
    * @param body contains the &#39;Username&#39; and &#39;Password&#39; input
    */
   loginUser(login: Login): Observable<String> {
+    httpOptions['observe'] = 'response';
+
     return this.http.post<String>(this.loginUrl, login, httpOptions).pipe(
-      tap((user: string | any) => this.notificationService.log(user)),
+      // tap((user: string | any) => this.notificationService.log(user)),
+      map( (response: string | any) => {
 
-      map( (user: string | any) => {
-        if ( typeof user === 'string') { this.notificationService.log(user); }
-
-        // login successful if there's a jwt token in the response
-        if (user && user.token) {
+        if ( response.status === 200 ) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-        return user;
+          localStorage.setItem('token', JSON.stringify(response.body.token));
+          localStorage.setItem('currentUser', JSON.stringify(response.body.currentUser));
+          return 'Successfully logged in';
+        } else { return 'Couldn\'t log in '; }
+
       }),
       catchError(this.errorService.handleError<String>('Log In'))
     );

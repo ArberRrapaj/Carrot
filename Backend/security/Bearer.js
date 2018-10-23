@@ -1,8 +1,8 @@
 'use strict'
 /**
- * Authorize function for securityDefinitions:api_key
+ * Authorize function for securityDefinitions: api_key
  * type : apiKey
- * description:
+ * description: Bearer key with JWT
  */
 module.exports = function authorize (req, res, next) {
   // The context('this') for authorize will be bound to the 'securityDefinition'
@@ -10,6 +10,12 @@ module.exports = function authorize (req, res, next) {
   // this.in - The location of the API key ("query" or "header") for securityDefinitions:api_key apiKey security scheme.
 
   // Perform auth here
+  /*
 
+  401:
+  description: Not authenticated
+  */
+  console.log('in authentication')
+  console.log(process.env.AUTH_SECRET)
   next()
 }

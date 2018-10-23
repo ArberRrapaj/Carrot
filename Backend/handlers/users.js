@@ -36,7 +36,7 @@ module.exports = {
          */
     let provider = dataProvider['get']
     provider(req, res, function (err, data) {
-      console.log('Users-Get: ', data)
+      // console.log('Users-Get: ', data)
 
       res.status(data.status).json(data.data)
     })

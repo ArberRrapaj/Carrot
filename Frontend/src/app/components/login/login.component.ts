@@ -13,8 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -26,7 +25,6 @@ export class LoginComponent implements OnInit {
   loaded: boolean;
   error: boolean;
   returnUrl: string;
-
 
   constructor(private formBuilder: FormBuilder,
     private countryService: CountryService,
@@ -94,7 +92,11 @@ export class LoginComponent implements OnInit {
 
     this.userService.loginUser( login )
     .subscribe( result => {
-      if (result != null && result.startsWith('Successfully logged in') ) { this.router.navigate([this.returnUrl]); }
+      if ( result != null ) {
+        if ( result.startsWith('Successfully logged in') ) {
+          this.router.navigate([this.returnUrl]);
+        } else { this.router.navigate(['/dashboard']); }
+      }
       console.log(result);
     });
   }
