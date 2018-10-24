@@ -16,6 +16,6 @@ module.exports = function authorize (req, res, next) {
   description: Not authenticated
   */
   console.log('in authentication')
-  console.log(process.env.AUTH_SECRET)
+  console.log(req.headers)
   next()
 }
