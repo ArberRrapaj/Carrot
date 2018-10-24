@@ -9,6 +9,7 @@ import { User } from '../../classes/user';
 import { ErrorService } from '../error/error.service';
 import { NotificationService } from '../notification/notification.service';
 import { Login } from 'src/app/classes/login';
+import { Password } from 'src/app/classes/password';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -124,9 +125,9 @@ export class UserService {
 
     return this.http.post<String>(this.loginUrl, login, httpOptions).pipe(
       // tap((user: string | any) => this.notificationService.log(user)),
-      map( (response: string | any) => {
+      map((response: string | any) => {
 
-        if ( response.status === 200 ) {
+        if (response.status === 200) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('token', JSON.stringify(response.body.token));
           localStorage.setItem('currentUser', JSON.stringify(response.body.currentUser));
@@ -144,6 +145,16 @@ export class UserService {
    * Logs out current logged in user session
    * localStorage.removeItem('currentUser');
    */
+  /**
+ * Logs user into the system
+ *
+ * @param body contains the &#39;Username&#39; and &#39;Password&#39; input
+ */
+  logoutUser(callback) {
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
+    callback(false, 'User logged out');
+  }
 
   /**
    * Update user's passwords
@@ -151,4 +162,12 @@ export class UserService {
    * @param username The User's username
    * @param body body containing 'OldPassword' and 'NewPassword'
    */
+  updatePassword(username: string, password: Password): Observable<String> {
+    const url = `${this.usersUrl}/${username}/password`;
+
+    return this.http.put(url, password, httpOptions).pipe(
+      // tap(_ => this.notificationService.log('Successfully updated user')),
+      catchError(this.errorService.handleError<any>('Updating User'))
+    );
+  }
 }

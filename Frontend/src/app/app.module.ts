@@ -32,6 +32,7 @@ import { GameNewComponent } from './components/game-new/game-new.component';
 import { ConfirmValidatorDirective } from './directives/confirm-validator/confirm-validator.directive';
 import { TokenInterceptor } from './interceptors/token-interceptor';
 import { AuthGuard } from './guards/auth/auth.guard';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { AuthGuard } from './guards/auth/auth.guard';
     NavigationComponent,
     NotificationsComponent,
     GameNewComponent,
-    ConfirmValidatorDirective
+    ConfirmValidatorDirective,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
