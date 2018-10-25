@@ -86,7 +86,7 @@ export class GameService {
    */
   addGame (game: Game): Observable<String> {
     return this.http.post<String>(this.gamesUrl, game, httpOptions).pipe(
-      // tap((game: string) => this.notificationService.log(game)),
+      tap((result: string) => this.notificationService.log(result)),
       catchError(this.errorService.handleError<String>('Adding Game'))
     );
   }

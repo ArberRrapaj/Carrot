@@ -116,6 +116,7 @@ Game.checkDuplicateGame = function (title, callback) {
 
 Game.saveGame = function (game, callback) {
   DB.query('INSERT INTO Games SET ?', [game], function (err, results) {
+    console.log(results)
     callback(err, results)
   })
 }

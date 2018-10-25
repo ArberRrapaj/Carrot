@@ -28,8 +28,9 @@ module.exports = {
       if (err) callback(err, result)
       else {
         Game.saveGame(game, function (err, results) {
+          console.log(results)
           if (err) callback(err, { 'status': 500, 'data': err.message })
-          else callback(err, { 'status': 200, 'data': 'Successfully inserted Game with title: ' + title })
+          else callback(err, { 'status': 200, 'data': 'Successfully inserted Game with ID: ' + results.insertId })
         })
       }
     })
