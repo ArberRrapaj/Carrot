@@ -18,7 +18,7 @@ module.exports = {
          */
     let provider = dataProvider['post']
     provider(req, res, function (err, data) {
-      console.log('Users-Post: ', data)
+      // console.log('Users-Post: ', data)
       res.status(data.status).json(data.data)
     })
   },

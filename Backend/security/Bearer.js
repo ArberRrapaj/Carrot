@@ -19,8 +19,12 @@ module.exports = function authorize (req, res, next) {
     if (err) return res.status(500).send('Failed to authenticate token.')
     else {
       // req.locals.user = user; // erlaubt dir auf user-informationen (id) in späteren routen zuzugreifen
-      req.username = decoded.username
-      next()
+      console.log('req.params: ', req.params)
+      console.log('decoded.username: ', decoded.username)
+      if (req.params['username'].localeCompare(decoded.username) === 0) {
+        req.username = decoded.username
+        next()
+      } else return res.status(401).json('Not authorized for that action.')
     }
   })
 }

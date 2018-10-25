@@ -149,11 +149,6 @@
         "summary": "Get a list of all users containing a given part of the username",
         "description": "",
         "operationId": "getUsersByUsername",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
         "produces": [
           "application/json"
         ],
@@ -187,11 +182,6 @@
         "summary": "Get user by user name",
         "description": "",
         "operationId": "getUserByUsername",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
         "produces": [
           "application/json"
         ],
@@ -222,6 +212,11 @@
         ],
         "summary": "Update user",
         "operationId": "updateUser",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "produces": [
           "application/json"
         ],

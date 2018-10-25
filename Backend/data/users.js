@@ -31,7 +31,14 @@ module.exports = {
       else {
         User.saveUser(user, function (err, results) {
           if (err) callback(err, { 'status': 500, 'data': err.message })
-          else callback(err, { 'status': 200, 'data': 'Successfully inserted user with username: ' + username })
+          else {
+            User.loginUser(username, password, function (err, results, internalError) {
+              if (err) {
+                if (internalError) callback(err, { 'status': 500, 'data': results })
+                else callback(err, { 'status': 400, 'data': results })
+              } else callback(err, { 'status': 200, 'data': { 'currentUser': username, 'token': results } })
+            })
+          }
         })
       }
     })

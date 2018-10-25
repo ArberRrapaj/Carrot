@@ -82,7 +82,11 @@ export class LoginComponent implements OnInit {
     console.log('Submitting this user: ', user);
     this.userService.addUser( user )
     .subscribe( result => {
-      // if (result != null && result.startsWith('Successfully inserted user with username') ) {  }
+      if ( result != null ) {
+        if ( result.startsWith('Successfully logged in') ) {
+          this.router.navigate([this.returnUrl]);
+        } else { this.router.navigate(['/dashboard']); }
+      }
       console.log(result);
     });
   }

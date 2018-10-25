@@ -121,7 +121,7 @@ User.schemaPassword = JOI.object().keys({
 
 User.validate = function (user, callback) {
   const validation = Validator.validateSchema(user, this.schema)
-  console.log(user)
+  // console.log(user)
 
   if (validation.result) {
     console.log('User is valid af')
@@ -181,7 +181,7 @@ User.checkDuplicateUser = function (username, callback) {
 }
 
 User.saveUser = function (user, callback) {
-  console.log('In we go-User: ', user)
+  // console.log('In we go-User: ', user)
 
   user.getFinalObject(function (err, result) {
     if (err) callback(err, 'Internal Error, please try again')
@@ -254,7 +254,7 @@ User.updateUser = function (user, callback) {
 
   console.log('Update-User-Username: ', username)
   delete user['Username']
-  console.log(user)
+  // console.log(user)
 
   DB.query('UPDATE Users SET ? WHERE Username = ?', [user, username], function (err, results) {
     console.log('UpdateUser: ', results)
