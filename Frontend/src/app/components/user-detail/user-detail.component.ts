@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { RouterModule, Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -17,12 +17,12 @@ import { NotificationService } from 'src/app/services/notification/notification.
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.sass']
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent implements OnInit, OnDestroy {
   user: User;
   games: Game[];
   game: Game;
   countries: Country[];
-  country: Country;
+  country: string;
   loaded: boolean;
   loadCount = 0;
   error: boolean;
@@ -37,6 +37,7 @@ export class UserDetailComponent implements OnInit {
   Start: number = null;
   Image = '';
   @ViewChild('image') imageInput: ElementRef;
+  navigationSubscription;
 
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
@@ -47,6 +48,13 @@ export class UserDetailComponent implements OnInit {
     private router: Router,
     private notificationService: NotificationService) {
 
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component
+      if (e instanceof NavigationEnd) {
+        this.clearNavigation();
+        this.initializeNavigation();
+      }
+    });
     // To initialize FormGroup
     this.userForm = formBuilder.group({
       'FirstName': [null, Validators.compose([ Validators.pattern(/([A-Z\sa-z]+$)/), Validators.minLength(1), Validators.maxLength(30)])],
@@ -60,23 +68,14 @@ export class UserDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.spinner.show();
-    // console.log('Current route: ', this.router.url);
-    this.editMode = this.router.url.includes('/edit');
-    console.log('Edit-Mode: ', this.editMode );
-    this.username = this.route.snapshot.params['username'];
 
-    this.getUser(this.username);
-    if ( this.editMode ) {
-      this.getCountries();
-      this.getGames();
-    }
   }
 
   getUser( username: string): void {
     this.userService.getUser( username )
     .subscribe( user => {
       console.log(user);
+      console.log(this.loadCount);
       if (user != null) {
         if (user.UserID === -1) {
           this.goToDashboard();
@@ -134,9 +133,9 @@ export class UserDetailComponent implements OnInit {
   getCountry(countryID: number): void {
     this.countryService.getCountry(countryID)
     .subscribe( country => {
-      console.log(country);
+      console.log('country fetched: ', country);
       if (country !== null) {
-        this.country = country;
+        this.country = country.CountryName;
       } else { this.error = true; }
       this.upTheLoader();
     });
@@ -215,6 +214,46 @@ export class UserDetailComponent implements OnInit {
   deleteImage() {
     this.Image = null;
     this.imageInput.nativeElement.value = '';
+  }
+
+  ngOnDestroy() {
+    // avoid memory leaks here by cleaning up after ourselves. If we
+    // don't then we will continue to run our initialiseInvites()
+    // method on every navigationEnd event.
+    if (this.navigationSubscription) {
+       this.navigationSubscription.unsubscribe();
+    }
+  }
+
+  initializeNavigation() {
+    this.spinner.show();
+    // console.log('Current route: ', this.router.url);
+    this.editMode = this.router.url.includes('/edit');
+    console.log('Edit-Mode: ', this.editMode );
+    this.username = this.route.snapshot.params['username'];
+
+    console.log('about to fetch user');
+    this.getUser(this.username);
+    if ( this.editMode ) {
+      this.getCountries();
+      this.getGames();
+    }
+  }
+
+  clearNavigation() {
+    console.log('Clear Navigation start');
+    this.user = null;
+    this.games = null;
+    this.game = null;
+    this.countries = null;
+    this.country = null;
+    this.loaded = false;
+    this.loadCount = 0;
+    this.error = false;
+    this.editMode = false;
+
+    this.username = null;
+    console.log('Clear Navigation stop');
   }
 
 }
