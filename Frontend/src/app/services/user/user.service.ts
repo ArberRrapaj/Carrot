@@ -129,8 +129,8 @@ export class UserService {
 
         if (response.status === 200) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('token', JSON.stringify(response.body.token));
-          localStorage.setItem('currentUser', JSON.stringify(response.body.currentUser));
+          localStorage.setItem('token', response.body.token);
+          localStorage.setItem('currentUser', response.body.currentUser);
           return 'Successfully logged in';
         } else { return 'Couldn\'t log in '; }
 

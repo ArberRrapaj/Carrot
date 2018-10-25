@@ -1,4 +1,5 @@
 'use strict'
+const jwt = require('jsonwebtoken')
 /**
  * Authorize function for securityDefinitions: api_key
  * type : apiKey
@@ -15,7 +16,17 @@ module.exports = function authorize (req, res, next) {
   401:
   description: Not authenticated
   */
-  console.log('in authentication')
-  console.log(req.headers)
-  next()
+  var token = req.headers['authorization']
+  console.log('In Authentication: ', token)
+  if (!token) return res.status(401).json('No authentication-token provided, please login first.')
+  token = req.headers.authorization.replace('Bearer ', '')
+
+  jwt.verify(token, process.env.AUTH_SECRET, function (err, decoded) {
+    if (err) return res.status(500).send('Failed to authenticate token.')
+    else {
+      // req.locals.user = user; // erlaubt dir auf user-informationen (id) in späteren routen zuzugreifen
+      req.username = decoded.username
+      next()
+    }
+  })
 }

@@ -104,7 +104,8 @@ export class GamesComponent implements OnInit {
 
   addToLibrary(gameID: number): void {
     console.log('Add to Library-Called');
-    const username = 'BubblegumPlayer';
+    const username = localStorage.getItem('currentUser');
+    console.log('username: ', username);
 
     const library = new Library(gameID);
     this.libraryService.addGameToLibrary(username, library)
