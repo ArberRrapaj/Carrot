@@ -32,7 +32,7 @@
                             </td>
                         </tr>
                     </table>
-                    <button mat-raised-button color="primary" [disabled]="!loginForm.valid || IsAccepted==0">Submit</button>
+                    <button class="submitButton" mat-raised-button color="primary" [disabled]="!loginForm.valid || IsAccepted==0">Submit</button>
                 </form>
             </mat-tab>
             <mat-tab label="Sign Up">
@@ -147,7 +147,7 @@
                         </tr>
                         -->
                     </table>
-                    <button mat-raised-button color="primary" [disabled]="!registerForm.valid || IsAccepted==0">Submit</button>
+                    <button class="submitButton" mat-raised-button color="primary" [disabled]="!registerForm.valid || IsAccepted==0">Submit</button>
                 </form>
             </mat-tab>
         </mat-tab-group>

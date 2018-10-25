@@ -80,8 +80,20 @@ export class UserService {
    * @param body The User's information
    */
   addUser(user: User): Observable<String> {
+    httpOptions['observe'] = 'response';
+
     return this.http.post<String>(this.usersUrl, user, httpOptions).pipe(
-      tap((result: string) => this.notificationService.log(result)),
+      // tap((result: string) => this.notificationService.log(result)),
+      map((response: string | any) => {
+
+        if (response.status === 200) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('token', response.body.token);
+          localStorage.setItem('currentUser', response.body.currentUser);
+          return 'Successfully logged in';
+        } else { return 'Couldn\'t log in '; }
+
+      }),
       catchError(this.errorService.handleError<String>('Adding User'))
     );
   }
