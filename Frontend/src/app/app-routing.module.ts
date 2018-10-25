@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'games/new', component: GameNewComponent, canActivate: [AuthGuard] },
   { path: 'games/:gameID', component: GameDetailComponent, canActivate: [AuthGuard] },
   { path: 'games/:gameID/edit', component: GameDetailComponent, canActivate: [AuthGuard] },
-  { path: 'users/:username', component: UserDetailComponent, canActivate: [AuthGuard] },
+  { path: 'users/:username', component: UserDetailComponent, canActivate: [AuthGuard], runGuardsAndResolvers: 'always'  },
   { path: 'users/:username/edit', component: UserDetailComponent, canActivate: [AuthGuard] },
 
   // otherwise redirect to home
@@ -28,7 +28,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ RouterModule.forRoot(routes, {
-    onSameUrlNavigation: 'reload'
+    onSameUrlNavigation: 'reload',
+    enableTracing: false
   }) ],
   exports: [ RouterModule ]
 })
