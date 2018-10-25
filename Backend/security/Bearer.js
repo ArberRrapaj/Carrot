@@ -10,12 +10,6 @@ module.exports = function authorize (req, res, next) {
   // this.name - The name of the header or query parameter to be used for securityDefinitions:api_key apiKey security scheme.
   // this.in - The location of the API key ("query" or "header") for securityDefinitions:api_key apiKey security scheme.
 
-  // Perform auth here
-  /*
-
-  401:
-  description: Not authenticated
-  */
   var token = req.headers['authorization']
   console.log('In Authentication: ', token)
   if (!token) return res.status(401).json('No authentication-token provided, please login first.')
