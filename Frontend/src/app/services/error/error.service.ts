@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { NotificationService } from '../../services/notification/notification.service';
 
@@ -9,7 +10,8 @@ import { NotificationService } from '../../services/notification/notification.se
 })
 export class ErrorService {
 
-  constructor(private notificationService: NotificationService) { }
+  constructor(private notificationService: NotificationService,
+    private router: Router) { }
 
   /**
    * Handle Http operation that failed.
@@ -22,12 +24,17 @@ export class ErrorService {
 
       console.error(error); // log to console
 
-      if (error.status === 0) {
+      if (error.status === 0) { // Backend down
         this.log( 'Server Error: Please try again later!' );
       } else {
         if ( error.error.startsWith('<!DOCTYPE html>') ) {
+          // swaggerize error, shouldn't happen in production anymore
           this.log( 'Server Error: Please try again later!' );
-        } else { this.log(`${operation} failed: ${error.error}`); }
+        } else {
+          if (error.status === 401 || error.error === 'Failed to authenticate token.') {
+            this.router.navigate(['/logout']);
+          } else { this.log(`${operation} failed: ${error.error}`); }
+        }
       }
 
       // Let the app keep running by returning an empty result.

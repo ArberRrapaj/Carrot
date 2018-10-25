@@ -156,7 +156,7 @@ export class GameDetailComponent implements OnInit {
   }
 
   addToLibrary(gameID: number): void {
-    const username = 'BubblegumPlayer';
+    const username = localStorage.getItem('currentUser');
 
     const library = new Library(gameID);
     this.libraryService.addGameToLibrary(username, library)

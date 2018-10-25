@@ -6,10 +6,10 @@
       </button>
   
       <div class="fill-remaining-space" fxLayout="row" fxShow="true" fxHide.lt-sm>
-          <button mat-button routerLink="/login">Login</button>
           <button mat-button routerLink="/dashboard">Dashboard</button>
           <button mat-button routerLink="/games">Games</button>
-          <button mat-button routerLink="/users/bubblegumplayer">Profile</button>
+          <button mat-button (click)="goToProfile()">Profile</button>
+          <button mat-button routerLink="/logout">Logout</button>
       </div>
       <div class="fill-remaining-space" fxLayout="row-reverse" fxHide="true" fxShow.lt-sm>
         <button mat-button [mat-menu-trigger-for]="menu">
@@ -19,10 +19,10 @@
   </mat-toolbar>
 
   <mat-menu x-position="before" #menu="matMenu">
-      <button mat-menu-item routerLink="/login">Login</button>
       <button mat-menu-item routerLink="/dashboard">Dashboard</button>
       <button mat-menu-item routerLink="/games">Games</button>
-      <button mat-menu-item routerLink="/users/bubblegumplayer">Profile</button>
+      <button mat-menu-item (click)="goToProfile()">Profile</button>
+      <button mat-menu-item routerLink="/logout">Logout</button>
   </mat-menu>
 
 </div>

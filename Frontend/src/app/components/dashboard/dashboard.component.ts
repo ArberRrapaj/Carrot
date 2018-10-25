@@ -88,7 +88,10 @@ export class DashboardComponent implements OnInit {
   }
 
   getLibrary(): void {
-    const username = 'BubblegumPlayer';
+    const username = localStorage.getItem('currentUser');
+    console.log('username: ', username);
+
+    console.log(username);
     this.libraryService.getLibrary(username)
     .subscribe(games => {
       if (games !== null) {
@@ -109,7 +112,7 @@ export class DashboardComponent implements OnInit {
   }
 
   removeFromLibrary(game: Game): void {
-    const username = 'BubblegumPlayer';
+    const username = localStorage.getItem('currentUser');
     console.log('Remove-from-Library-Called');
     this.libraryService.removeGameOffLibrary(username, game.GameID)
       .subscribe(message => {

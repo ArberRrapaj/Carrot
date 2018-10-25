@@ -13,10 +13,11 @@ module.exports = {
      * operationId: getLibraryByUserID
      */
   get: function (req, res, callback) {
+    console.log('hi: ', req.params.username)
     User.getUserByUsername(req.params.username, function (err, user) {
       if (err) callback(err, { 'status': 500, 'data': err.message })
-      else if (user !== null) {
-        console.log(user)
+      else if (user != null) {
+        // console.log(user)
         User.getLibraryByUserID(user.UserID, function (err, results) {
           if (err) callback(err, { 'status': 500, 'data': err.message })
           else callback(err, { 'status': 200, 'data': results })

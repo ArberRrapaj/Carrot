@@ -237,11 +237,12 @@ User.checkPassword = function (username, password, callback) {
 
 // For /Users/{Username}
 User.getUserByUsername = function (username, callback) {
-  console.log('getUserByUsername')
+  console.log('getUserByUsername: ', username)
 
   DB.query('SELECT UserID, Username, FirstName, CountryID, Image, `Start`, FavouriteGameID, About FROM Users WHERE Username = ?', [username], function (err, results) {
     if (err) callback(err, results)
     else {
+      // console.log(results)
       if (results.length > 0 && results[0].Image != null && results[0].Image !== undefined && results[0].Image !== '') results[0].Image = results[0].Image.toString('utf-8')
       callback(err, results[0])
     }
