@@ -38,6 +38,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   Image = '';
   @ViewChild('image') imageInput: ElementRef;
   navigationSubscription;
+  own: boolean;
 
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
@@ -202,6 +203,11 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.router.navigate([url]);
   }
 
+  enterNewPassword() {
+    const url = this.router.url + '/password';
+    this.router.navigate([url]);
+  }
+
   cancelEditMode() {
     const url = this.router.url.replace('/edit', '');
     this.router.navigate([url]);
@@ -231,7 +237,9 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.editMode = this.router.url.includes('/edit');
     console.log('Edit-Mode: ', this.editMode );
     this.username = this.route.snapshot.params['username'];
-
+    if ( localStorage.getItem('currentUser').localeCompare(this.username) === 0) {
+      this.own = true;
+    } else { this.own = false; }
     console.log('about to fetch user');
     this.getUser(this.username);
     if ( this.editMode ) {
@@ -253,6 +261,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.editMode = false;
 
     this.username = null;
+    this.own = false;
     console.log('Clear Navigation stop');
   }
 

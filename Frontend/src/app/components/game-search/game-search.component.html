@@ -1,8 +1,6 @@
-<h4> Game Search </h4>
-
 <form class="games-form" [formGroup]='gamesForm'>
   <mat-form-field class="full-width">
-    <input id="search-box" matInput placeholder="Choose a Game" [matAutocomplete]="auto" formControlName='userInput'>
+    <input id="search-box" matInput placeholder="Search for a Game" [matAutocomplete]="auto" formControlName='userInput'>
   </mat-form-field>
 
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">

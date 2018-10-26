@@ -5,6 +5,10 @@
 
 <div *ngIf="loaded && !error">
 
+  <div *ngIf="!editMode" id="user-search">
+    <app-user-search></app-user-search>
+  </div>
+
   <mat-card id="user-card" *ngIf="!editMode">
     <div id="card-header">
       <img *ngIf="!user.Image" src="../../assets/no-image.png">
@@ -44,7 +48,8 @@
     <mat-card-footer>
       <mat-card-actions>
         <button mat-raised-button class="card-button" color="accent" (click)="goToDashboard()">Cancel</button>
-        <button mat-raised-button class="card-button" color="primary" (click)="enterEditMode()">Edit</button>
+        <button *ngIf="own" mat-raised-button class="card-button" color="primary" (click)="enterNewPassword()">Edit PW</button>
+        <button *ngIf="own" mat-raised-button class="card-button" color="primary" (click)="enterEditMode()">Edit</button>
       </mat-card-actions>
     </mat-card-footer>
   </mat-card>
