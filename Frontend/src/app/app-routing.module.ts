@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'games/:gameID/edit', component: GameDetailComponent, canActivate: [AuthGuard] },
   { path: 'users/:username', component: UserDetailComponent, canActivate: [AuthGuard], runGuardsAndResolvers: 'always' },
   { path: 'users/:username/edit', component: UserDetailComponent, canActivate: [AuthGuard, OwnGuard] },
+  { path: 'users/:username/password', component: UserDetailComponent, canActivate: [AuthGuard, OwnGuard] },
 
   // otherwise redirect to home
   { path: '**', redirectTo: 'dashboard' }

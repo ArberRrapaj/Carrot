@@ -178,8 +178,8 @@ export class UserService {
     const url = `${this.usersUrl}/${username}/password`;
 
     return this.http.put(url, password, httpOptions).pipe(
-      // tap(_ => this.notificationService.log('Successfully updated user')),
-      catchError(this.errorService.handleError<any>('Updating User'))
+      tap(_ => this.notificationService.log('Successfully updated password')),
+      catchError(this.errorService.handleError<any>('Updating Password'))
     );
   }
 }

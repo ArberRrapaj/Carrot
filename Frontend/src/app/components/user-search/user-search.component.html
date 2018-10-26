@@ -1,8 +1,6 @@
-<h4> User Search </h4>
-
 <form class="users-form" [formGroup]='usersForm'>
   <mat-form-field class="full-width">
-    <input id="search-box" matInput placeholder="Choose a user" [matAutocomplete]="auto" formControlName='userInput'>
+    <input id="search-box" matInput placeholder="Search for a user" [matAutocomplete]="auto" formControlName='userInput'>
   </mat-form-field>
 
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
