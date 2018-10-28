@@ -21,4 +21,4 @@ gulp.task('parallelstart', ['backend-lint', 'frontend-lint'], () => {
     return run('npm start').exec()
 })
 
-gulp.task('default', [ 'parallelstart' ]);
+gulp.task('default', ['backend-lint', 'frontend-lint']);

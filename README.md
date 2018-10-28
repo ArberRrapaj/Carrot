@@ -21,18 +21,16 @@ Run `gulp`
 * Installs Frontend and Backend Dependencies
 * Lints Backend
 * Lints Frontend
-* Starts up Frontend and Backend servers in one one shell
-
 
 ### Application Startup
 
-Run `npm start` in root directory for usage in single shell
+Run `npm start`  in root directory for usage in single shell.
 
 or
 
 Run `cd fe && ng serve`
 
-and `cd be && npm start`
+and `cd be && npm start`.
 
 in seperate shells.
 
