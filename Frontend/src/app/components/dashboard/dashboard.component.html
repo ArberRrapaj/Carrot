@@ -20,12 +20,12 @@
           <mat-card-content routerLink="/games/{{game.GameID}}">
             
             <p> Publisher: {{ game.Publisher || 'n/a'}} </p>
-            <p> Genre: {{ genres[game.Genre] }} </p>
+            <p> Genre: {{ genres[game.GenreID] }} </p>
           </mat-card-content>
           <mat-card-footer>
             <mat-card-actions>
               <button class="card-button" mat-raised-button routerLink="/games/{{game.GameID}}/edit" color="primary">Edit</button>
-              <button class="card-button" mat-raised-button (click)="removeFromLibrary(game)" color="danger">Delete</button>
+              <button class="card-button" mat-raised-button (click)="removeFromLibrary(game)" color="danger">Remove</button>
             </mat-card-actions>
           </mat-card-footer>
         </mat-card>

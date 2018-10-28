@@ -18,8 +18,6 @@ import { confirmValidator } from 'src/app/directives/confirm-validator/confirm-v
 })
 export class UserPasswordComponent implements OnInit {
   passwordForm: FormGroup;
-  loaded: boolean;
-  error: boolean;
   username: string;
 
   constructor(private formBuilder: FormBuilder,
@@ -53,6 +51,10 @@ export class UserPasswordComponent implements OnInit {
         if (result != null && result.startsWith('Successfully updated users password')) { this.cancelChangePassword(); }
         console.log(result);
       });
+  }
+
+  get pwConfirm() {
+    return this.passwordForm.get('PasswordConfirm');
   }
 
   cancelChangePassword() {

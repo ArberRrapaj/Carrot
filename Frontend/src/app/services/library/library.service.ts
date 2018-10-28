@@ -61,7 +61,7 @@ export class LibraryService {
     const url = `${this.librariesUrl}/${username}/${gameID}`;
 
     return this.http.delete<String>(url, httpOptions).pipe(
-      tap(_ => this.notificationService.log('Successfully deleted Game')),
+      tap(_ => this.notificationService.log('Successfully removed Game from Library')),
       catchError(this.errorService.handleError<String>('Removing Game from Library'))
     );
   }

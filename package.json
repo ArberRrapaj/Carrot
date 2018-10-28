@@ -1,16 +1,22 @@
 {
   "name": "carrot",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "Web-Application for Tracking of your Game-Library",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArberRrapaj/Carrot.git"
+  },
+  "author": "Arbër Rrapaj",
   "scripts": {
     "frontend": "cd ./Frontend/ && ng serve",
-    "backend": "cd ./Backend/  && nodemon ./bin/www",
+    "backend": "cd ./Backend/  && node ./bin/www",
     "start": "parallelshell \"npm run backend\" \"npm run frontend\"",
     "frontendBuild": "cd ./Frontend/ && npm install",
-    "backendBuild": "cd ./Backend/ && npm install",
-    "install": "parallelshell \"npm run frontendBuild\" \"npm run backendBuild\""
+    "backendBuild": "cd ./Backend/ && npm install"
   },
   "dependencies": {
-    "parallelshell": "^3.0.2"
+    "parallelshell": "^3.0.2",
+    "gulp": "^3.9.1",
+    "gulp-run": "^1.7.1"
   }
 }
