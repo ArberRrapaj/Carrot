@@ -24,7 +24,7 @@ const instance = (function () {
     process.env.DB_PASSWORD,
     process.env.DB_DATABASE
   )
-  console.log('DB izzda')
+  console.log('DB connected')
   return dbConnector
 })()
 Object.freeze(instance)

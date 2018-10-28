@@ -28,7 +28,7 @@ var server = http.createServer(app)
 server.listen(port, function () {
   app.swagger.api.host = this.address().address + ':' + this.address().port
   /* eslint-disable no-console */
-  console.log('App running on %s:%d', this.address().address, this.address().port)
+  console.log('Backend running on %s:%d', this.address().address, this.address().port)
   /* eslint-disable no-console */
 })
 server.on('error', onError)
