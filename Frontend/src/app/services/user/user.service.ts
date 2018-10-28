@@ -122,7 +122,7 @@ export class UserService {
     const url = `${this.usersUrl}/${username}`;
 
     return this.http.put(url, user, httpOptions).pipe(
-      // tap(_ => this.notificationService.log('Successfully updated user')),
+      tap(_ => this.notificationService.log('Successfully updated user')),
       catchError(this.errorService.handleError<any>('Updating User'))
     );
   }

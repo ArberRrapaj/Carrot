@@ -50,7 +50,7 @@
         "lint": "eslint .",
         "lintfix": "eslint . --fix",
         "regenerate": "yo swaggerize:test --framework express --apiPath './config/swagger.json'",
-        "start": "nodemon ./bin/www"
+        "start": "node ./bin/www"
     },
     "generator-swaggerize": {
         "version": "4.1.0"

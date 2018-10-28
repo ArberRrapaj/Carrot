@@ -78,7 +78,7 @@ export class DashboardComponent implements OnInit {
       console.log(genres);
       if (genres !== null && genres.length !== 0) {
         this.genres = genres.reduce(function(genreMap, obj) {
-          genreMap[obj.GenreID] = obj.GenreID;
+          genreMap[obj.GenreID] = obj.GenreName;
           return genreMap;
         }, {});
       } else { this.error = true; }
@@ -113,10 +113,8 @@ export class DashboardComponent implements OnInit {
 
   removeFromLibrary(game: Game): void {
     const username = localStorage.getItem('currentUser');
-    console.log('Remove-from-Library-Called');
     this.libraryService.removeGameOffLibrary(username, game.GameID)
       .subscribe(message => {
-        console.log(message);
         if (message != null) { this.games = this.games.filter(h => h !== game); }
       });
   }
