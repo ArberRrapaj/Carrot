@@ -44,7 +44,7 @@ The Frontend will be accessible through `http://localhost:4200/`.
 
 ### Testing
 
-## E2E Tests
+#### E2E Tests
 
 0) Make sure you followed "Application Build"
 
@@ -52,7 +52,7 @@ The Frontend will be accessible through `http://localhost:4200/`.
 
 2) In the root folder of the project run `gulp e2e`
 
-## Unit Tests
+#### Unit Tests
 
 0) Make sure you followed "Application Build"
 
