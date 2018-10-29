@@ -1,18 +1,9 @@
 {
     "name": "carrot-backend",
     "description": "Carrot's Backend",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "author": "Arbër <Arber.Rrapaj@hotmail.de>",
     "contributors": [],
-    "private": true,
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/ArberRrapaj/backend.git"
-    },
-    "bugs": "http://github.com/ArberRrapaj/backend/issues",
-    "publishConfig": {
-        "registry": "https://registry.npmjs.org"
-    },
     "dependencies": {
         "body-parser": "^1.15.0",
         "cookie-parser": "~1.4.3",
@@ -32,12 +23,14 @@
         "eslint-config-google": "^0.10.0",
         "eslint-config-standard": "^12.0.0",
         "eslint-plugin-import": "^2.14.0",
+        "eslint-plugin-mocha": "^5.2.0",
         "eslint-plugin-node": "^7.0.1",
         "eslint-plugin-promise": "^4.0.1",
         "eslint-plugin-standard": "^4.0.0",
         "is-my-json-valid": "^2.13.1",
         "istanbul": "~0.4.3",
         "js-yaml": "^3.2.6",
+        "mocha": "^5.2.0",
         "nodemon": "^1.18.4",
         "supertest": "^1.2.0",
         "swagger-parser": "^3.4.1",
@@ -45,11 +38,9 @@
         "tape": "^4"
     },
     "scripts": {
-        "test": "tape 'tests/**/*.js'",
-        "cover": "istanbul cover tape -- 'tests/**/*.js'",
+        "test": "mocha testing/games.js --exit",
         "lint": "eslint .",
         "lintfix": "eslint . --fix",
-        "regenerate": "yo swaggerize:test --framework express --apiPath './config/swagger.json'",
         "start": "node ./bin/www"
     },
     "generator-swaggerize": {

@@ -18,6 +18,8 @@ Generate layout and content:
 
 ### Application Build
 
+Follow "Database Setup"
+
 Run `npm install`
 
 Run `gulp`
@@ -31,13 +33,30 @@ Run `npm start`  in root directory for usage in single shell
 
 or
 
-run `cd fe && ng serve`
+run `cd Frontend && ng serve`
 
-and `cd be && npm start`.
+and `cd Backend && npm start`.
 
 in seperate shells.
 
 The Frontend will be accessible through `http://localhost:4200/`.
+
+
+### Testing
+
+## E2E Tests
+
+0) Make sure you followed "Application Build"
+
+1) Make sure the backend is running
+
+2) In the root folder of the project run `gulp e2e`
+
+## Unit Tests
+
+0) Make sure you followed "Application Build"
+
+1) In the root folder of the project run `gulp unit`
 
 ### Troubleshooting
 
