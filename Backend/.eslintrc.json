@@ -3,5 +3,10 @@
     "rules": {
         "standard/no-callback-literal": "off",
         "handle-callback-err": "off"
+    },
+    "env": {
+        "es6": true,
+        "node": true,
+        "mocha": true
     }
 }

@@ -5,7 +5,7 @@ gulp.task('backend-dependencies', () => {
     return run('cd Backend && npm install').exec()
 })
 
-gulp.task('backend-lint', ['backend-dependencies'],  () => {
+gulp.task('backend-lint', ['backend-dependencies'], () => {
     return run('cd Backend && npm run lint').exec()
 })
 
@@ -19,6 +19,14 @@ gulp.task('frontend-dependencies', () => {
 
 gulp.task('parallelstart', ['backend-lint', 'frontend-lint'], () => {
     return run('npm start').exec()
+})
+
+gulp.task('e2e', () => {
+    return run('cd Frontend && ng e2e').exec()
+})
+
+gulp.task('unit', () => {
+    return run('cd Backend && npm run test').exec()
 })
 
 gulp.task('default', ['backend-lint', 'frontend-lint']);

@@ -1,4 +1,7 @@
 {
+    "plugins": [
+        "mocha"
+    ],
     "rules": {
         "standard/no-callback-literal": "off",
         "indent": [
@@ -20,7 +23,8 @@
     },
     "env": {
         "es6": true,
-        "node": true
+        "node": true,
+        "mocha": true
     },
     "extends": "eslint:recommended"
 }
