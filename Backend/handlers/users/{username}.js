@@ -44,8 +44,7 @@ module.exports = {
   delete: function deleteUser (req, res, next) {
     let provider = dataProvider['delete']
     provider(req, res, function (err, data) {
-      // console.log('Users-Username-Put: ', data)
-
+      console.log('Users-Username-Put: ', data.data)
       res.status(data.status).json(data.data)
     })
   }

@@ -1,14 +1,10 @@
 swagger: '2.0'
 info:
   description: 'Carrot is the go-to App for Gamers, who want an overview about every Game they own. You have a huge Game library, but don''t know what to play? Carrot gives you a daily suggestion on which game you could play. Connect to other players, by visiting their profiles. Don''t hesitate and jump right in!'
-  version: 0.0.1
+  version: 1.0.0
   title: Carrot
-  termsOfService: 'http://termsLinkHere/'
   contact:
-    email: Arber.Rrapaj@hotmail.de
-  license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    email: inf17010@lehre.dhbw-stuttgart.de
 host: localhost
 basePath: /api
 tags:
@@ -21,7 +17,6 @@ tags:
   - name: libraries
     description: Operations on user's libraries
 schemes:
-  - https
   - http
 paths:
   /users:
@@ -169,6 +164,8 @@ paths:
         - users
       summary: Delete a user
       operationId: deleteUser
+      security:
+        - Bearer: []
       produces:
         - application/json
       parameters:

@@ -105,9 +105,16 @@ export class UserService {
    */
   deleteUser(username: string): Observable<String> {
     const url = `${this.usersUrl}/${username}`;
+    httpOptions['observe'] = 'response';
 
-    return this.http.delete<String>(url, httpOptions).pipe(
-      // tap(_ => this.notificationService.log('Successfully deleted User')),
+    return this.http.delete<string>(url, httpOptions).pipe(
+      map((response: string | any) => {
+        if (response.status === 200) {
+          return 'Successfully deleted user';
+        } else {
+          return 'Error deleting your account, please try again later';
+        }
+      }),
       catchError(this.errorService.handleError<String>('Deleting User'))
     );
   }

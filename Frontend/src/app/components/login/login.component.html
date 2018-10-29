@@ -9,7 +9,7 @@
 
         <mat-tab-group *ngIf="loaded && !error">
 
-            <mat-tab active=true label="Sign In">
+            <mat-tab active=true label="Sign In" id="sign-in-tab">
                 <!-- Login Form -->
                 <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit(loginForm.value)">
                     <table id="formTable">
@@ -17,7 +17,7 @@
                             <td>
                                 <mat-form-field appearance="fill">
                                     <mat-label>Username</mat-label>
-                                    <input formControlName="Username" matInput placeholder="Username" required>
+                                    <input id="login-username" formControlName="Username" matInput placeholder="Username" required>
                                 </mat-form-field>
                             </td>
                         </tr>
@@ -26,16 +26,16 @@
                             <td>
                                 <mat-form-field appearance="fill">
                                     <mat-label>Password</mat-label>
-                                    <input type="password" formControlName="Password" matInput placeholder="Password"
+                                    <input id="login-password" type="password" formControlName="Password" matInput placeholder="Password"
                                         required>
                                 </mat-form-field>
                             </td>
                         </tr>
                     </table>
-                    <button class="submitButton" mat-raised-button color="primary" [disabled]="!loginForm.valid || IsAccepted==0">Submit</button>
+                    <button id="sign-in-button" class="submitButton" mat-raised-button color="primary" [disabled]="!loginForm.valid || IsAccepted==0">Submit</button>
                 </form>
             </mat-tab>
-            <mat-tab label="Sign Up">
+            <mat-tab label="Sign Up" id="sign-up-tab">
                 <!-- Sign Up Form -->
                 <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit(registerForm.value)">
                     <table id="formTable">
@@ -43,7 +43,7 @@
                             <td>
                                 <mat-form-field appearance="fill">
                                     <mat-label>Username</mat-label>
-                                    <input formControlName="Username" matInput placeholder="Username" required>
+                                    <input id="register-username" formControlName="Username" matInput placeholder="Username" required>
                                     <mat-error *ngIf="!registerForm.get('Username').valid && registerForm.get('Username').touched">
                                         Your username should be between 3 and 20 characters.
                                     </mat-error>
@@ -55,7 +55,7 @@
                             <td>
                                 <mat-form-field appearance="fill">
                                     <mat-label>Password</mat-label>
-                                    <input type="password" formControlName="Password" matInput placeholder="Password"
+                                    <input id="register-password" type="password" formControlName="Password" matInput placeholder="Password"
                                         required>
                                     <mat-error *ngIf="!registerForm.get('Password').valid && registerForm.get('Password').touched">
                                         Your password must be at least 6 characters long.
@@ -68,7 +68,7 @@
                             <td>
                                 <mat-form-field appearance="fill">
                                     <mat-label>Confirm your password</mat-label>
-                                    <input type="password" formControlName="PasswordConfirm" matInput placeholder="Confirm Password"
+                                    <input id="register-password-confirm" type="password" formControlName="PasswordConfirm" matInput placeholder="Confirm Password"
                                         required>
                                     <mat-error *ngIf="pwConfirm.touched && (!pwConfirm.valid || pwConfirm.hasError('confirm'))">
                                         Your Passwords don't match.
@@ -83,7 +83,7 @@
                             <td>
                                 <mat-form-field appearance="fill">
                                     <mat-label>First Name</mat-label>
-                                    <input formControlName="FirstName" matInput placeholder="Geralt">
+                                    <input id="register-first-name" formControlName="FirstName" matInput placeholder="Geralt">
                                     <mat-error *ngIf="!registerForm.get('FirstName').valid && registerForm.get('FirstName').touched">
                                         Try writing your name without special characters and digits.
                                     </mat-error>
@@ -95,7 +95,7 @@
                             <td>
                                 <mat-form-field appearance="fill">
                                     <mat-label>Started gaming in year...</mat-label>
-                                    <input min="1900" max="2018" formControlName="Start" matInput placeholder="2018">
+                                    <input id="register-started" min="1900" max="2018" formControlName="Start" matInput placeholder="2018">
                                     <mat-error *ngIf="!registerForm.get('Start').valid && registerForm.get('Start').touched">
                                         The Start-Year should be a valid number between 1900 and 2018
                                     </mat-error>
@@ -124,7 +124,7 @@
                             <td>
                                 <mat-form-field appearance="fill">
                                     <mat-label>About you</mat-label>
-                                    <textarea formControlName="About" matInput placeholder="Professional Tamagotchi player"></textarea>
+                                    <textarea id="register-about" formControlName="About" matInput placeholder="Professional Tamagotchi player"></textarea>
                                     <mat-error *ngIf="!registerForm.get('About').valid && registerForm.get('About').touched">
                                         Your 'About' seems to include weird characters, please remove those
                                     </mat-error>
@@ -147,7 +147,7 @@
                         </tr>
                         -->
                     </table>
-                    <button class="submitButton" mat-raised-button color="primary" [disabled]="!registerForm.valid || IsAccepted==0">Submit</button>
+                    <button id="sign-up-button" class="submitButton" mat-raised-button color="primary" [disabled]="!registerForm.valid || IsAccepted==0">Submit</button>
                 </form>
             </mat-tab>
         </mat-tab-group>
