@@ -198,6 +198,18 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     });
   }
 
+  deleteUser() {
+    console.log('Delete-User-Called');
+
+    this.userService.deleteUser(this.username)
+      .subscribe(message => {
+        console.log(message);
+        if (message != null && message.startsWith('Successfully deleted user')) {
+          this.router.navigate(['/logout']);
+        }
+      });
+  }
+
   enterEditMode() {
     const url = this.router.url + '/edit';
     this.router.navigate([url]);
