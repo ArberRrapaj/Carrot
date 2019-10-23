@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+
 
 import { Library } from '../../classes/library';
 import { Game } from '../../classes/game';
@@ -17,7 +19,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class LibraryService {
-  private librariesUrl = 'http://localhost:3000/api/libraries';  // URL to web api
+  private librariesUrl = environment.librariesUrl;  // URL to web api
 
   constructor(private http: HttpClient,
     private notificationService: NotificationService,
