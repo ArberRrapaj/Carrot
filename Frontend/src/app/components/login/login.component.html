@@ -26,13 +26,12 @@
                             <td>
                                 <mat-form-field appearance="fill">
                                     <mat-label>Password</mat-label>
-                                    <input id="login-password" type="password" formControlName="Password" matInput placeholder="Password"
-                                        required>
+                                    <input id="login-password" type="password" formControlName="Password" matInput placeholder="Password" required>
                                 </mat-form-field>
                             </td>
                         </tr>
                     </table>
-                    <button id="sign-in-button" class="submitButton" mat-raised-button color="primary" [disabled]="!loginForm.valid || IsAccepted==0">Submit</button>
+                    <button id="sign-in-button" class="submitButton" mat-raised-button color="primary" [disabled]="!loginForm.valid">Submit</button>
                 </form>
             </mat-tab>
             <mat-tab label="Sign Up" id="sign-up-tab">
@@ -55,8 +54,7 @@
                             <td>
                                 <mat-form-field appearance="fill">
                                     <mat-label>Password</mat-label>
-                                    <input id="register-password" type="password" formControlName="Password" matInput placeholder="Password"
-                                        required>
+                                    <input id="register-password" type="password" formControlName="Password" matInput placeholder="Password" required>
                                     <mat-error *ngIf="!registerForm.get('Password').valid && registerForm.get('Password').touched">
                                         Your password must be at least 6 characters long.
                                     </mat-error>
@@ -68,8 +66,7 @@
                             <td>
                                 <mat-form-field appearance="fill">
                                     <mat-label>Confirm your password</mat-label>
-                                    <input id="register-password-confirm" type="password" formControlName="PasswordConfirm" matInput placeholder="Confirm Password"
-                                        required>
+                                    <input id="register-password-confirm" type="password" formControlName="PasswordConfirm" matInput placeholder="Confirm Password" required>
                                     <mat-error *ngIf="pwConfirm.touched && (!pwConfirm.valid || pwConfirm.hasError('confirm'))">
                                         Your Passwords don't match.
                                     </mat-error>
@@ -147,7 +144,7 @@
                         </tr>
                         -->
                     </table>
-                    <button id="sign-up-button" class="submitButton" mat-raised-button color="primary" [disabled]="!registerForm.valid || IsAccepted==0">Submit</button>
+                    <button id="sign-up-button" class="submitButton" mat-raised-button color="primary" [disabled]="!registerForm.valid">Submit</button>
                 </form>
             </mat-tab>
         </mat-tab-group>
