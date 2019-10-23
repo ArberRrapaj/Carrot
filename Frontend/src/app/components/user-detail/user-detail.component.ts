@@ -36,7 +36,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   About = '';
   Start: number = null;
   Image = '';
-  @ViewChild('image') imageInput: ElementRef;
+  @ViewChild('image', {static: false}) imageInput: ElementRef;
   navigationSubscription;
   own: boolean;
 

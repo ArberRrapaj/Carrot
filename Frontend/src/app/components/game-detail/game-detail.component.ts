@@ -33,7 +33,7 @@ export class GameDetailComponent implements OnInit {
   Publisher = '';
   Released: number = null;
   Image = '';
-  @ViewChild('image') imageInput: ElementRef;
+  @ViewChild('image', {static: false}) imageInput: ElementRef;
 
 
   constructor(private formBuilder: FormBuilder,
