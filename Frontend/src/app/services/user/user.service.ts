@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-
+import { environment } from '../../../environments/environment';
 
 import { User } from '../../classes/user';
 import { ErrorService } from '../error/error.service';
@@ -14,19 +14,13 @@ import { Password } from 'src/app/classes/password';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-/**
- * Users
- * User
- * users
- * User
- * user
- */
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private usersUrl = 'http://localhost:3000/api/users';  // URL to web api
-  private loginUrl = 'http://localhost:3000/api/users/login';
+  private usersUrl = environment.usersUrl;
+  private loginUrl = environment.loginUrl;
 
   constructor(private http: HttpClient,
     private notificationService: NotificationService,

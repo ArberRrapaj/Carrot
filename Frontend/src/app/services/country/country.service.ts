@@ -1,29 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 
 import { Country } from '../../classes/country';
 import { ErrorService } from '../error/error.service';
 import { NotificationService } from '../notification/notification.service';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-/**
- * Countries
- * Country
- * countries
- * Country
- * country
- */
 @Injectable({
   providedIn: 'root'
 })
 export class CountryService {
-  private countriesUrl = 'http://localhost:3000/api/countries';  // URL to web api
+  private countriesUrl = environment.countriesUrl;  // URL to web api
 
   constructor(private http: HttpClient,
     private notificationService: NotificationService,

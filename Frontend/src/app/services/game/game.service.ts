@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-
+import { environment } from '../../../environments/environment';
 
 import { Game } from '../../classes/game';
 import { ErrorService } from '../error/error.service';
@@ -12,28 +12,20 @@ import { NotificationService } from '../notification/notification.service';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-/**
- * Games
- * Game
- * games
- * Game
- * game
- */
+
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-  private gamesUrl = 'http://localhost:3000/api/games';  // URL to web api
+  private gamesUrl = environment.gamesUrl;  // URL to web api
 
   constructor(private http: HttpClient,
     private notificationService: NotificationService,
     private errorService: ErrorService) { }
 
 
-
   /**
    * Get a list of all games
-   *
    */
   getGames (): Observable<Game[]> {
     console.log('getGames called');
