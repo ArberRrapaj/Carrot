@@ -4,49 +4,44 @@
 
 <div *ngIf="loaded && !error">
 
-  <div id="games-list-info" *ngIf="games">
-    Welcome to the Games-Tab, seems like our database includes a stunning number of {{games.length}} games!
-    <button mat-raised-button routerLink="/games/new" color="primary"> Add another one! </button>
-  </div>
+    <div id="games-list-info" *ngIf="games">
+        Welcome to the Games-Tab, seems like our database includes a stunning number of {{games.length}} games!
+        <button mat-raised-button routerLink="/games/new" color="primary"> Add another one! </button>
+    </div>
 
-  <div id="game-search" *ngIf="games.length != 0">
-    <app-game-search></app-game-search>
-  </div>
+    <div id="game-search" *ngIf="games.length != 0">
+        <app-game-search></app-game-search>
+    </div>
 
-  <div id="games-list" *ngIf="games.length > 0">
-    <mat-grid-list [cols]="cols | async" rowHeight="450px" gutterSize="20px">
-      <mat-grid-tile *ngFor="let game of games" colspan=1 rowspan=1>
-        <mat-card class="game-card">
-          <mat-card-header routerLink="/games/{{game.GameID}}">
-            <mat-card-title [innerHTML]="game.Title"></mat-card-title>
-            <mat-card-subtitle>{{ game.Released || 'Year n/a' }}</mat-card-subtitle>
-          </mat-card-header>
-          <img *ngIf="!game.Image" mat-card-image src="../../assets/no-cover.png" routerLink="/games/{{game.GameID}}">
-          <img *ngIf="game.Image" mat-card-image src="{{game.Image}}" routerLink="/games/{{game.GameID}}">
-          <mat-card-content routerLink="/games/{{game.GameID}}">
+    <div id="games-list" *ngIf="games.length > 0">
+        <mat-card class="game-card" *ngFor="let game of games">
+            <mat-card-header routerLink="/games/{{game.GameID}}">
+                <mat-card-title [innerHTML]="game.Title"></mat-card-title>
+                <mat-card-subtitle>{{ game.Released || 'Year n/a' }}</mat-card-subtitle>
+            </mat-card-header>
+            <img *ngIf="!game.Image" mat-card-image src="../../assets/no-cover.png" routerLink="/games/{{game.GameID}}">
+            <img *ngIf="game.Image" mat-card-image src="{{game.Image}}" routerLink="/games/{{game.GameID}}">
+            <mat-card-content routerLink="/games/{{game.GameID}}">
 
-            <p> Publisher: {{ game.Publisher || 'n/a'}} </p>
-            <p> Genre: {{ genres[game.GenreID] }} </p>
-          </mat-card-content>
-          <mat-card-footer>
-            <mat-card-actions>
-              <button class="card-button" mat-raised-button (click)="addToLibrary(game.GameID)" color="primary">Add</button>
-              <button class="card-button" mat-raised-button routerLink="/games/{{game.GameID}}/edit" color="accent">Edit</button>
-              <button class="card-button" mat-raised-button (click)="deleteGame(game)" color="warn">Delete</button>
-            </mat-card-actions>
-          </mat-card-footer>
+                <p> Publisher: {{ game.Publisher || 'n/a'}} </p>
+                <p> Genre: {{ genres[game.GenreID] }} </p>
+            </mat-card-content>
+            <mat-card-footer>
+                <mat-card-actions>
+                    <button class="card-button" mat-raised-button (click)="addToLibrary(game.GameID)" color="primary">Add</button>
+                    <button class="card-button" mat-raised-button routerLink="/games/{{game.GameID}}/edit" color="accent">Edit</button>
+                    <button class="card-button" mat-raised-button (click)="deleteGame(game)" color="warn">Delete</button>
+                </mat-card-actions>
+            </mat-card-footer>
         </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </div>
+    </div>
 
-  <div id="empty-list" *ngIf="games.length == 0">
-    <p> Seems like there are no games in our database yet, how about you press the button up there and be the first to
-      add one! </p>
-  </div>
+    <div id="empty-list" *ngIf="games.length == 0">
+        <p> Seems like there are no games in our database yet, how about you press the button up there and be the first to add one! </p>
+    </div>
 
 </div>
 
 <div id="error-line" *ngIf="error">
-  <p> There was an error with the connection, please try again later! </p>
+    <p> There was an error with the connection, please try again later! </p>
 </div>

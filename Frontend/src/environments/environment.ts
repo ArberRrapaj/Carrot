@@ -4,12 +4,12 @@
 
 export const environment = {
   production: false,
-  countriesUrl: 'http://localhost:6666/api/countries',
-  gamesUrl: 'http://localhost:6666/api/games',
-  genresUrl: 'http://localhost:6666/api/genres',
-  librariesUrl: 'http://localhost:6666/api/libraries',
-  usersUrl: 'http://localhost:6666/api/users',
-  loginUrl: 'http://localhost:6666/api/users/login'
+  countriesUrl: 'http://localhost:8123/api/countries',
+  gamesUrl: 'http://localhost:8123/api/games',
+  genresUrl: 'http://localhost:8123/api/genres',
+  librariesUrl: 'http://localhost:8123/api/libraries',
+  usersUrl: 'http://localhost:8123/api/users',
+  loginUrl: 'http://localhost:8123/api/users/login'
 };
 
 /*
