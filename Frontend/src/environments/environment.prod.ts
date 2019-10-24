@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
-  countriesUrl: 'http://carrot.rrapaj.com/api/countries',
-  gamesUrl: 'http://carrot.rrapaj.com/api/games',
-  genresUrl: 'http://carrot.rrapaj.com/api/genres',
-  librariesUrl: 'http://carrot.rrapaj.com/api/libraries',
-  usersUrl: 'http://carrot.rrapaj.com/api/users',
-  loginUrl: 'http://carrot.rrapaj.com/api/users/login'
+  countriesUrl: 'https://carrot.rrapaj.com/api/countries',
+  gamesUrl: 'https://carrot.rrapaj.com/api/games',
+  genresUrl: 'https://carrot.rrapaj.com/api/genres',
+  librariesUrl: 'https://carrot.rrapaj.com/api/libraries',
+  usersUrl: 'https://carrot.rrapaj.com/api/users',
+  loginUrl: 'https://carrot.rrapaj.com/api/users/login'
 };
