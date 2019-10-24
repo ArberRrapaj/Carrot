@@ -8,23 +8,25 @@ let swaggerize = require('swaggerize-express')
 let cors = require('cors')
 let app = express()
 
-const corsOptions = {
-  origin: 'http://localhost:4200',
-  credentials: true
+var corsOptions = {
+    origin: 'http://localhost:4200',
+    credentials: true
 }
+
+if (process.env.PROD) corsOptions.origin = process.env.PROD_URL;
 
 // here is the magic
 app.use(cors(corsOptions))
 
 app.use(bodyParser.json({ limit: '50mb' }))
 app.use(bodyParser.urlencoded({
-  limit: '50mb',
-  extended: true
+    limit: '50mb',
+    extended: true
 }))
 app.use(swaggerize({
-  api: path.resolve('./config/swagger.json'),
-  handlers: path.resolve('./handlers'),
-  security: path.resolve('./security')
+    api: path.resolve('./config/swagger.json'),
+    handlers: path.resolve('./handlers'),
+    security: path.resolve('./security')
 }))
 app.use(logger('dev'))
 app.use(express.json())
